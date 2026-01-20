@@ -34,16 +34,17 @@
                 <p class="text-slate-500">Rejoignez la plus grande communauté de pêcheurs.</p>
             </div>
 
-            <form action="#" class="space-y-4">
+            <form action="/fishmasters/auth/create" method="POST" class="space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1.5">Nom complet</label>
-                        <input type="text" placeholder="Ilyas Doughmi" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-400">
+                        <input type="text" name="full_name" required placeholder="Ilyas Doughmi" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-400">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1.5">Rôle</label>
-                        <select class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all">
+                        <select name="userRole" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all">
                             <option value="fisher">Pêcheur</option>
+                            <option value="fan">Fan</option>
                             <option value="organizer">Organisateur</option>
                         </select>
                     </div>
@@ -51,28 +52,34 @@
 
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1.5">Email</label>
-                    <input type="email" placeholder="votre@email.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-400">
+                    <input type="email" name="email" required placeholder="votre@email.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-400">
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1.5">Mot de passe</label>
-                        <input type="password" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-400">
+                        <input type="password" name="password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-400">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1.5">Confirmer</label>
-                        <input type="password" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-400">
+                        <input type="password" name="password_confirm" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-400">
                     </div>
                 </div>
 
+                <!-- Default values for simplified registration -->
+                <input type="hidden" name="photo" value="default.jpg">
+                <input type="hidden" name="club" value="Indépendant">
+                <input type="hidden" name="region" value="Maroc">
+                <input type="hidden" name="favouritPeche" value="Général">
+
                 <div class="pt-2">
                     <label class="flex items-start gap-3 cursor-pointer group">
-                        <input type="checkbox" class="mt-1 w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary">
+                        <input type="checkbox" required class="mt-1 w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary">
                         <span class="text-sm text-slate-600">J'accepte les <a href="#" class="text-primary font-semibold hover:underline">Conditions d'utilisation</a> et la <a href="#" class="text-primary font-semibold hover:underline">Politique de confidentialité</a>.</span>
                     </label>
                 </div>
 
-                <button class="w-full bg-primary hover:bg-sky-600 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-primary/20 hover:shadow-primary/30 transform hover:-translate-y-0.5 mt-4">
+                <button type="submit" class="w-full bg-primary hover:bg-sky-600 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-primary/20 hover:shadow-primary/30 transform hover:-translate-y-0.5 mt-4">
                     Créer mon compte
                 </button>
             </form>
