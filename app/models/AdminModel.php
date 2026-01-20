@@ -18,7 +18,18 @@ class Admin extends UserModel
 
 {
     public function login($email,$password){
-        $sql="SELECT * FROM users where useremail=" ;
+
+    try {
+
+        $sql="SELECT * FROM users where useremail=$email";
+        $stmt=$this->pdo->prepare($sql);
+        $rows=$stmt->execute($sql);
+    } 
+
+    catch (PDOexception $e){
+        echo $e->getMessage();
+    }
+
     }
 
 } 
