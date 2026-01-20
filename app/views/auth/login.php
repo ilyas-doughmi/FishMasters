@@ -60,7 +60,7 @@
 
             <div class="mt-8 text-center text-sm text-slate-500">
                 Pas encore de compte ? 
-                <a href="register.html" class="font-bold text-primary hover:underline">S'inscrire gratuitement</a>
+                <a href="/fishmasters/auth/register" class="font-bold text-primary hover:underline">S'inscrire gratuitement</a>
             </div>
         </div>
 

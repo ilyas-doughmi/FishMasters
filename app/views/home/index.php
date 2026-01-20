@@ -1,3 +1,5 @@
+<?php require_once 'app/views/layout/header.php'; ?>
+
     <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
         <div class="absolute inset-0 -z-10 h-full w-full bg-subtle grid-pattern [mask-image:linear-gradient(to_bottom,white,transparent)]"></div>
         <div class="absolute top-0 right-0 -z-10 translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-100/50 rounded-full blur-3xl opacity-60"></div>
@@ -106,10 +108,12 @@
                 </div>
                 
                 <div class="relative z-10">
-                    <a href="#" class="inline-block bg-primary hover:bg-sky-500 text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-1">
+                    <a href="/fishmasters/auth/register" class="inline-block bg-primary hover:bg-sky-500 text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-1">
                         Créer mon compte
                     </a>
                 </div>
             </div>
         </div>
     </section>
+
+<?php require_once 'app/views/layout/footer.php'; ?>
