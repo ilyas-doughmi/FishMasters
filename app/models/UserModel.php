@@ -9,6 +9,16 @@ abstract class User
     protected $role;
     protected $createdAt;
 
+    public function __construct($id,$fullname,$email,$password,$role,$createdAt){
+        $this->id=$id;
+        $this->fullname=$fullname;
+        $this->email=$email;
+        $this->password=$password;
+        $this->role=$role;
+        $this->createdAt;
+    }
+
+
     abstract public function login();
     abstract public function register();
 
@@ -31,4 +41,5 @@ abstract class User
             return true;
         }
     }
+    
 }
