@@ -19,9 +19,6 @@ $current_page = $activePage ?? '';
                 <a href="/fishmasters/admin/index" class="flex items-center gap-3 px-4 py-2.5 <?php echo $current_page === 'dashboard' ? 'bg-white/10 text-white border border-white/5' : 'text-slate-400 hover:text-white'; ?> rounded-xl font-medium transition-all text-sm">
                     <i class="fa-solid fa-chart-line w-4"></i> Dashboard
                 </a>
-                <a href="/fishmasters/admin/stats" class="flex items-center gap-3 px-4 py-2.5 <?php echo $current_page === 'stats' ? 'bg-white/10 text-white border border-white/5' : 'text-slate-400 hover:text-white'; ?> rounded-xl font-medium transition-all text-sm">
-                    <i class="fa-solid fa-chart-pie w-4"></i> Statistiques
-                </a>
             </nav>
         </div>
 
@@ -55,31 +52,12 @@ $current_page = $activePage ?? '';
             </nav>
         </div>
 
-        <!-- Users & Rankings -->
+        <!-- Users -->
         <div>
             <p class="px-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">Communauté</p>
             <nav class="space-y-1">
                 <a href="/fishmasters/admin/fishers" class="flex items-center gap-3 px-4 py-2.5 <?php echo $current_page === 'fishers' ? 'bg-white/10 text-white border border-white/5' : 'text-slate-400 hover:text-white'; ?> rounded-xl font-medium transition-all text-sm">
                     <i class="fa-solid fa-users w-4"></i> Pêcheurs
-                </a>
-                <a href="/fishmasters/admin/rankings_championship" class="flex items-center gap-3 px-4 py-2.5 <?php echo $current_page === 'rankings' ? 'bg-white/10 text-white border border-white/5' : 'text-slate-400 hover:text-white'; ?> rounded-xl font-medium transition-all text-sm">
-                    <i class="fa-solid fa-medal w-4"></i> Championnat
-                </a>
-            </nav>
-        </div>
-
-        <!-- Tools -->
-        <div>
-            <p class="px-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">Outils</p>
-            <nav class="space-y-1">
-                <a href="/fishmasters/admin/emails_send" class="flex items-center gap-3 px-4 py-2.5 <?php echo $current_page === 'emails' ? 'bg-white/10 text-white border border-white/5' : 'text-slate-400 hover:text-white'; ?> rounded-xl font-medium transition-all text-sm">
-                    <i class="fa-solid fa-paper-plane w-4"></i> Emailing
-                </a>
-                <a href="/fishmasters/admin/reports_generate" class="flex items-center gap-3 px-4 py-2.5 <?php echo $current_page === 'reports' ? 'bg-white/10 text-white border border-white/5' : 'text-slate-400 hover:text-white'; ?> rounded-xl font-medium transition-all text-sm">
-                    <i class="fa-solid fa-file-pdf w-4"></i> Rapports PDF
-                </a>
-                <a href="/fishmasters/admin/notifications" class="flex items-center gap-3 px-4 py-2.5 <?php echo $current_page === 'notifications' ? 'bg-white/10 text-white border border-white/5' : 'text-slate-400 hover:text-white'; ?> rounded-xl font-medium transition-all text-sm">
-                    <i class="fa-solid fa-bell w-4"></i> Notifications
                 </a>
             </nav>
         </div>
