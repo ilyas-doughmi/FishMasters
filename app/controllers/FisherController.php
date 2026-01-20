@@ -10,7 +10,7 @@ class FisherController {
         require_once('app/views/fisher/catches/add.php');
     }
 
-    public function competitions() {
+    public function vcompetitions() {
         require_once('app/views/fisher/competitions/index.php');
     }
 
