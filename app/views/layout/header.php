@@ -78,8 +78,8 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <a href="#" class="hidden md:block font-semibold text-slate-600 hover:text-primary">Connexion</a>
-                <a href="#" class="bg-secondary hover:bg-slate-800 text-white px-6 py-2.5 rounded-full font-bold transition-all transform hover:scale-105 shadow-lg shadow-slate-900/20">
+                <a href="/fishmasters/auth/login" class="hidden md:block font-semibold text-slate-600 hover:text-primary">Connexion</a>
+                <a href="/fishmasters/auth/register" class="bg-secondary hover:bg-slate-800 text-white px-6 py-2.5 rounded-full font-bold transition-all transform hover:scale-105 shadow-lg shadow-slate-900/20">
                     S'inscrire
                 </a>
             </div>
