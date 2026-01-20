@@ -1,6 +1,19 @@
 <?php
 
-abstract class User 
+spl_autoload_register(function ($className) {
+
+    $path = "models/";
+    $extension = ".php";
+    $fullpath = $path . $className . $extension;
+
+    if (!file_exists($fullpath)) {
+        return false;
+    }
+
+    require_once $fullpath;
+});
+
+abstract class User extends Database 
 {
     protected $id;
     protected $fullname;
@@ -41,5 +54,5 @@ abstract class User
             return true;
         }
     }
-    
+
 }
