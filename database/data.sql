@@ -22,6 +22,20 @@ CREATE TYPE likeTarget AS ENUM ('fisherman', 'catch', 'competition');
 
 CREATE TYPE competitionStatus AS ENUM ('inProgress', 'done', 'notStarted');
 
+CREATE TABLE badge (
+    badgeId SERIAL PRIMARY KEY,
+    badgeName VARCHAR(100) NOT NULL,
+    badgeDescription TEXT NOT NULL
+);
+
+CREATE TABLE badge_user (
+    badgeId INT NOT NULL,
+    userId INT NOT NULL,
+    PRIMARY KEY (badgeId, userId),
+    FOREIGN KEY (badgeId) REFERENCES badge (badgeId),
+    FOREIGN KEY (userId) REFERENCES users (userId)
+);
+
 CREATE TABLE likes (
     likeId SERIAL PRIMARY KEY,
     likeType likeTarget NOT NULL,
@@ -114,13 +128,12 @@ CREATE TABLE competition_rules (
     FOREIGN KEY (ruleId) REFERENCES rules (ruleId)
 );
 
-CREATE TABLE ranking (
-    rankingId SERIAL PRIMARY KEY,
-    rankingPosition INT NOT NULL,
-    rankingUserId INT NOT NULL,
-    rankingCompetitionId INT NOT NULL,
-    FOREIGN KEY (rankingUserId) REFERENCES users (userId),
-    FOREIGN KEY (rankingCompetitionId) REFERENCES competition (competitionId)
+CREATE TABLE rule_species (
+    ruleId INT NOT NULL,
+    speciesId INT NOT NULL,
+    PRIMARY KEY (ruleId, speciesId),
+    FOREIGN KEY (ruleId) REFERENCES rules (ruleId),
+    FOREIGN KEY (speciesId) REFERENCES species (speciesId)
 );
 
 INSERT INTO
@@ -133,19 +146,19 @@ INSERT INTO
 VALUES (
         'Mehdi Cherkaoui',
         'mehdi@mail.com',
-        'hashed_pwd_1',
+        'pwd1',
         'fisher'
     ),
     (
-        'Yassine El Amrani',
+        'Yassine Amrani',
         'yassine@mail.com',
-        'hashed_pwd_2',
+        'pwd2',
         'fisher'
     ),
     (
         'Admin User',
         'admin@mail.com',
-        'hashed_pwd_admin',
+        'adminpwd',
         'admin'
     );
 
@@ -173,6 +186,19 @@ VALUES (
     );
 
 INSERT INTO
+    badge (badgeName, badgeDescription)
+VALUES (
+        'First Catch',
+        'Awarded for first validated catch'
+    ),
+    (
+        'Big Fish',
+        'Awarded for catching a big fish'
+    );
+
+INSERT INTO badge_user (badgeId, userId) VALUES (1, 1), (2, 2);
+
+INSERT INTO
     species (
         speciesName,
         speciesMinSize,
@@ -193,7 +219,7 @@ INSERT INTO
         competitionStatus
     )
 VALUES (
-        'FishMasters Morocco 2026',
+        'FishMasters 2026',
         'National',
         'Sea Fishing',
         'Agadir',
@@ -227,8 +253,8 @@ VALUES (
         5.20,
         60.00,
         'catch1.jpg',
-        false,
-        true,
+        FALSE,
+        TRUE,
         1,
         1
     ),
@@ -236,17 +262,13 @@ VALUES (
         4.10,
         55.00,
         'catch2.jpg',
-        true,
-        true,
+        TRUE,
+        TRUE,
         2,
         2
     );
 
-INSERT INTO
-    catch_species (catchId, speciesId)
-VALUES (1, 1),
-    (2, 2);
-
+INSERT INTO catch_species (catchId, speciesId) VALUES (1, 1), (2, 2);
 
 INSERT INTO
     rules (ruleName, ruleDescription)
@@ -265,13 +287,10 @@ VALUES (1, 1),
     (1, 2);
 
 INSERT INTO
-    ranking (
-        rankingPosition,
-        rankingUserId,
-        rankingCompetitionId
-    )
-VALUES (1, 1, 1),
-    (2, 2, 1);
+    rule_species (ruleId, speciesId)
+VALUES (1, 1),
+    (1, 2),
+    (2, 3);
 
 INSERT INTO
     likes (
