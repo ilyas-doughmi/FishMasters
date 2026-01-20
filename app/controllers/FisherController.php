@@ -18,7 +18,7 @@ class FisherController {
         require_once('app/views/fisher/profile.php');
     }
 
-    public function vclassement() {
+    public function classement() {
         require_once('app/views/fisher/classement/classement.php');
     }
 }
