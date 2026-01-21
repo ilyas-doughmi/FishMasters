@@ -1,19 +1,7 @@
 <?php
 
-spl_autoload_register(function ($className) {
-
-    $path = "models/";
-    $extension = ".php";
-    $fullpath = $path . $className . $extension;
-
-    if (!file_exists($fullpath)) {
-        return false;
-    }
-
-    require_once $fullpath;
-});
-
-class Admin extends UserModel
+require_once 'app/models/UserModel.php';
+class Admin extends User
 {
     public function login($email, $password)
     {
@@ -25,19 +13,24 @@ class Admin extends UserModel
             $row = $stmt->fetch(PDO::FETCH_OBJ);
 
             if (!$row) {
-                throw new Exception("User not found");
+                return 'email_not_found';
             }
 
-            if ($password !== $row->userpassword) {
-                throw new Exception("Incorrect password");
+            if (!password_verify($password, $row->userpassword)) {
+                if ($password !== $row->userpassword) {
+                    return 'invalid_password';
+                }
             }
 
-            return true;
+            return $row;
 
         } catch (PDOException $e) {
-            echo "Database error: " . $e->getMessage();
-        } catch (Exception $e) {
-            echo $e->getMessage();
+            return 'db_error:' . $e->getMessage();
         }
+    }
+
+    public function register()
+    {
+        return false;
     }
 }

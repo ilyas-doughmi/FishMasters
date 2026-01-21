@@ -1,6 +1,6 @@
 <?php
 
-class Participant
+class ParticipantModel
 {
     private int $id;
     private string $registerAt;

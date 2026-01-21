@@ -45,5 +45,6 @@
         </div>
     </footer>
 
+    <script src="/FishMasters/fetch.js"></script>
 </body>
 </html>

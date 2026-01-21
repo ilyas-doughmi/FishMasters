@@ -29,6 +29,15 @@ class Badge extends Database
         $this->description = $description;
     }
 
+     public function showBadge($userId): array
+    {
+        $sql="SELECT * FROM badge_user where user_id=?";
+        $stmt=$this->pdo->prepare($sql);
+        $rows=$stmt->execute([$userId]);
+        return $rows;
+        
+    }
+
     public function __get($property)
     {
         return $this->$property;

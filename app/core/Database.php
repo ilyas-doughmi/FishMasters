@@ -6,7 +6,7 @@ class Database
 
     private function __construct() {}
 
-    public static function getInstance(): PDO
+    public static function getInstance()
     {
         if (self::$instance === null) {
             $host = 'dockhosting.dev';
