@@ -1,10 +1,15 @@
 <?php
 <<<<<<< HEAD
+//  2GUYS
+// CREATE CLOSE GENERATE !!! SHOW EDIT JOIN !!!! // MEHDI - ILYAS
+=======
+<<<<<<< HEAD
 
 =======
 //  2GUYS
 // CREATE CLOSE GENERATE !!! SHOW EDIT JOIN !!!! // MEHDI - ILYAS
 >>>>>>> feat-model
+>>>>>>> ba26709d9ee4b9eaed57700aae24d976a86042e7
 class CompetitionModel
 {
     private int $id;
