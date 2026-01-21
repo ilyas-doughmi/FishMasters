@@ -1,7 +1,12 @@
 <?php
-
+// fix database and fix implementation !!!  OUSSAMA
 spl_autoload_register(function ($className) {
 
+<<<<<<< HEAD
+spl_autoload_register(function ($className) {
+
+=======
+>>>>>>> feat-model
     $path = "models/";
     $extension = ".php";
     $fullpath = $path . $className . $extension;
@@ -27,6 +32,15 @@ class Badge extends Database
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
+    }
+
+     public function showBadge($userId): array
+    {
+        $sql="SELECT * FROM badge_user where user_id=?";
+        $stmt=$this->pdo->prepare($sql);
+        $rows=$stmt->execute([$userId]);
+        return $rows;
+        
     }
 
     public function __get($property)

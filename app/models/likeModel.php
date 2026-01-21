@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
 
+=======
+// GET LIKE AND FIXING IMPLEMENATION OF CLASS !!! ILYAS
+>>>>>>> feat-model
 
 spl_autoload_register(function ($className) {
 
@@ -52,6 +56,10 @@ class Like extends Database
         $stmt->execute([$id]);
         return true;
     }
+<<<<<<< HEAD
+=======
+    // get like count   
+>>>>>>> feat-model
 
 
     public function __get($property)
