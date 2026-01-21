@@ -1,29 +1,41 @@
 <?php
 
-class Database
+class Badge
 {
-    private static $instance = null;
+    private int $id;
+    private string $name;
+    private string $description;
 
-    private function __construct() {}
+    private PDO $pdo;
 
-    public static function getInstance()
+    public function __construct(
+        int $id,
+        string $name,
+        string $description
+    ) {
+        $this->pdo = Database::getInstance(); 
+
+        $this->id = $id;
+        $this->name = $name;
+        $this->description = $description;
+    }
+
+    public function showBadge(int $userId): array
     {
-        if (self::$instance === null) {
-            $host = 'dockhosting.dev';
-            $db   = 'app';
-            $user = 'admin';
-            $pass = 'fc33f7c834f13fa10656ab8e';
-            $port = 46132;
+        $sql = "SELECT * FROM badge_user WHERE user_id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$userId]);
 
-            $dsn = "pgsql:host=$host;port=$port;dbname=$db";
+        return $stmt->fetchAll();
+    }
 
-            self::$instance = new PDO($dsn, $user, $pass, [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
-                PDO::ATTR_EMULATE_PREPARES => false,
-            ]);
-        }
+    public function __get($property)
+    {
+        return $this->$property;
+    }
 
-        return self::$instance;
+    public function __set($property, $value)
+    {
+        $this->$property = $value;
     }
 }

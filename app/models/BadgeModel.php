@@ -1,15 +1,8 @@
 <?php
-// fix database and fix implementation !!!  OUSSAMA
+
 spl_autoload_register(function ($className) {
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-spl_autoload_register(function ($className) {
 
-=======
->>>>>>> feat-model
->>>>>>> ba26709d9ee4b9eaed57700aae24d976a86042e7
     $path = "models/";
     $extension = ".php";
     $fullpath = $path . $className . $extension;
@@ -21,7 +14,7 @@ spl_autoload_register(function ($className) {
     require_once $fullpath;
 });
 
-class Badge extends Database
+class Badge 
 {
     private int $id;
     private string $name;

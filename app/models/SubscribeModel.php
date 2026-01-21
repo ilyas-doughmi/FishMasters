@@ -42,15 +42,17 @@ class Subscribe extends Database
         $stmt->execute([$this->type,$this->fanId,$this->createdAt]);
         return true;
     }
+}
 
     public function remove($id): bool
+
     {   
-<<<<<<< HEAD
+
         $sql="DELETE FROM subscribe where subscribeid=?  "; // safety add AND
-=======
-<<<<<<< HEAD
+
+
         $sql="DELETE FROM subscribe where subscribeid=? ";
-=======
+
         $sql="DELETE FROM subscribe where subscribeid=?  "; // safety add AND
 >>>>>>> feat-model
 >>>>>>> ba26709d9ee4b9eaed57700aae24d976a86042e7
@@ -68,14 +70,12 @@ class Subscribe extends Database
     {
         $this->$property = $value;
     }
-<<<<<<< HEAD
+
 
     // get subscritpion count MERYEM
-=======
-<<<<<<< HEAD
-=======
+
+
 
     // get subscritpion count MERYEM
 >>>>>>> feat-model
 >>>>>>> ba26709d9ee4b9eaed57700aae24d976a86042e7
-}
