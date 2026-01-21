@@ -57,7 +57,19 @@ class ScoreModel
 
     public function showScore(int $fisherId): float
     {
-        return $this->totalPoints;
+        try {
+            $db = Database::getInstance();
+            $sql = "SELECT scoreTotalPoints from score s
+                left join fisher f on f.userId = s.scoreFisherId
+                where userId = :fisherId";
+            $stmt = $db->prepare($sql);
+            $result = $stmt->execute([
+                ':fisherId' => $fisherId,
+            ]);
+            return $result;
+        } catch (Exception $e) {
+            return false;
+        }
     }
     public function generateRanking(): array
     {

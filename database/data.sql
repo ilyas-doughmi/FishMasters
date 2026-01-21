@@ -15,10 +15,8 @@ CREATE TABLE fisher (
     userClub VARCHAR(100) NOT NULL,
     userRegion VARCHAR(100) NOT NULL,
     userFavoritPeche VARCHAR(255) NOT NULL,
-
-    FOREIGN KEY (userId) REFERENCES users(userId)
+    FOREIGN KEY (userId) REFERENCES users (userId)
 );
-
 
 CREATE TYPE likeTarget AS ENUM ('fisherman', 'catch', 'competition');
 
@@ -86,17 +84,15 @@ CREATE TABLE competition (
 
 CREATE TABLE score (
     scoreId SERIAL PRIMARY KEY,
-    scoreTotalWeight NUMERIC(5,2) NOT NULL,
-    scoreTotalPoints NUMERIC(5,2) NOT NULL,
-    scoreBiggestCatch NUMERIC(5,2) NOT NULL,
+    scoreTotalWeight NUMERIC(5, 2) NOT NULL,
+    scoreTotalPoints NUMERIC(5, 2) NOT NULL,
+    scoreBiggestCatch NUMERIC(5, 2) NOT NULL,
     scoreCatchCount INT NOT NULL,
     scoreCompetitionId INT NOT NULL,
     scoreFisherId INT NOT NULL,
-
-    FOREIGN KEY (scoreCompetitionId) REFERENCES competition(competitionId),
-    FOREIGN KEY (scoreFisherId) REFERENCES fisher(userId)
+    FOREIGN KEY (scoreCompetitionId) REFERENCES competition (competitionId),
+    FOREIGN KEY (scoreFisherId) REFERENCES fisher (userId)
 );
-
 
 CREATE TABLE catch (
     catchId SERIAL PRIMARY KEY,
@@ -170,33 +166,24 @@ VALUES (
 
 INSERT INTO
     fisher (
-        userFullName,
-        userEmail,
-        userPassword,
-        userRole,
+        userId,
         userPhoto,
         userClub,
         userRegion,
         userFavoritPeche
     )
 VALUES (
-        'Mehdi Cherkaoui',
-        'mehdi@mail.com',
-        'hashed_password_1',
-        'FISHER',
+        1,
         'mehdi.jpg',
-        'Blue Sea Club',
+        'Atlantic Club',
         'Casablanca',
         'Surfcasting'
     ),
     (
-        'Yassine El Amrani',
-        'yassine@mail.com',
-        'hashed_password_2',
-        'FISHER',
+        2,
         'yassine.jpg',
-        'Atlantic Anglers',
-        'Agadir',
+        'Ocean Club',
+        'Rabat',
         'Spinning'
     );
 
@@ -249,10 +236,11 @@ INSERT INTO
         scoreTotalPoints,
         scoreBiggestCatch,
         scoreCatchCount,
-        scoreCompetitionId
+        scoreCompetitionId,
+        scoreFisherId
     )
-VALUES (15.50, 120.00, 5.20, 3, 1),
-    (12.30, 95.00, 4.10, 2, 1);
+VALUES (15.50, 120.00, 5.20, 3, 1, 1),
+    (12.30, 95.00, 4.10, 2, 1, 2);
 
 INSERT INTO
     catch (
