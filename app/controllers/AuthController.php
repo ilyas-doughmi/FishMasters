@@ -23,41 +23,49 @@ class AuthController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             require_once 'app/core/Database.php';
-            require_once 'app/models/UserModel.php';
+            require_once 'app/models/AdminModel.php';
 
-            session_start();
 
             $db = Database::getInstance();
 
-            $userModel = new User();
-
+            $userModel = new Admin($db);
+            
+            $email = trim($_POST['email']);
+            $password = $_POST['password'];
+                
             $result = $userModel->login(
-                $_POST['email'],
-                $_POST['password']
+                $email,
+                $password
             );
 
-            if (!$result) {
-                header('Location: ../login?error=invalid');
+            if (!is_object($result)) {
+                $error = $result ? $result : 'verify_credentials';
+                header('Location: /fishmasters/auth/login?message=' . urlencode($error));
                 exit;
             }
 
-            $_SESSION['user'] = $result;
+            $_SESSION['user'] = [
+                'id' => $result->userid,
+                'name' => $result->userfullname,
+                'email' => $result->useremail,
+                'role' => $result->userrole
+            ];
 
-            switch ($result->userRole) {
+            switch ($result->userrole) {
                 case 'admin':
-                    header('Location: ../admin/dashboard');
+                    header('Location: /fishmasters/admin/index');
                     break;
 
                 case 'fisher':
-                    header('Location: ../fisher/dashboard');
+                    header('Location: /fishmasters/fisher/index');
                     break;
 
                 case 'fan':
-                    header('Location: ../Home');
+                    header('Location: /fishmasters/home/index');
                     break;
 
                 default:
-                    header('Location: ../login?error=role');
+                    header('Location: /fishmasters/auth/login?error=role');
             }
 
             exit;
@@ -84,9 +92,9 @@ class AuthController
             $client->favouritPeche = $_POST['favouritPeche'];
 
             if ($client->register()) {
-                header('Location: ../login');
+                header('Location: /fishmasters/auth/login');
             } else {
-                header('Location: ../register?error=failed');
+                header('Location: /fishmasters/auth/register?error=failed');
             }
         }
     }

@@ -1,6 +1,7 @@
 <?php
 
-abstract class User 
+
+abstract class User extends Database 
 {
     protected $id;
     protected $fullname;
@@ -8,38 +9,32 @@ abstract class User
     protected $password;
     protected $role;
     protected $createdAt;
+    
+    protected $pdo;
 
-    public function __construct($id,$fullname,$email,$password,$role,$createdAt){
-        $this->id=$id;
-        $this->fullname=$fullname;
-        $this->email=$email;
-        $this->password=$password;
-        $this->role=$role;
-        $this->createdAt;
+    public function __construct($pdo){
+       $this->pdo = $pdo;
     }
 
 
-    abstract public function login();
+    abstract public function login($email,$password);
     abstract public function register();
 
     public function __get($name) {
         if ($name === "password") {
-            echo "Password cannot be accessed\n";
             return null;
         } else {
-            echo "Getting property: $name\n";
             return $this->$name;
         }
     }
 
     public function __set($name, $value) {
         if ($name === "password") {
-            echo "Password cannot be modified\n";
             return false;
         } else {
             $this->$name = $value;
             return true;
         }
     }
-    
+
 }
