@@ -45,7 +45,15 @@ class Subscribe extends Database
 
     public function remove($id): bool
     {   
+<<<<<<< HEAD
         $sql="DELETE FROM subscribe where subscribeid=?  "; // safety add AND
+=======
+<<<<<<< HEAD
+        $sql="DELETE FROM subscribe where subscribeid=? ";
+=======
+        $sql="DELETE FROM subscribe where subscribeid=?  "; // safety add AND
+>>>>>>> feat-model
+>>>>>>> ba26709d9ee4b9eaed57700aae24d976a86042e7
         $stmt=$this->pdo->prepare($sql);
         $stmt->execute([$id]);
         return true;
@@ -60,6 +68,14 @@ class Subscribe extends Database
     {
         $this->$property = $value;
     }
+<<<<<<< HEAD
 
     // get subscritpion count MERYEM
+=======
+<<<<<<< HEAD
+=======
+
+    // get subscritpion count MERYEM
+>>>>>>> feat-model
+>>>>>>> ba26709d9ee4b9eaed57700aae24d976a86042e7
 }
