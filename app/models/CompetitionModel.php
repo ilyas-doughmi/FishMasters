@@ -1,6 +1,6 @@
 <?php
 
-class Competition
+class CompetitionModel
 {
     private int $id;
     private string $name;

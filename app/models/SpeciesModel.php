@@ -1,6 +1,6 @@
 <?php
 
-class Species
+class SpeciesModel
 {
     private int $id;
     private string $name;

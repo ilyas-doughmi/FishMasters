@@ -1,6 +1,6 @@
 <?php
 
-class Score
+class ScoreModel
 {
     private int $id;
     private float $totalWeight;

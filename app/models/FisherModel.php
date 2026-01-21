@@ -1,27 +1,28 @@
 <?php
 include_once "app/models/UserModel.php";
 
-class fisher extends User
+class Fisher extends User
 {
-    private $photo;
-    private $club;
-    private $region;
-    private $favouritPeche;
-    public function __construct($db)
+    protected $photo;
+    protected $club;
+    protected $region;
+    protected $favouritPeche;
+
+    public function __construct($pdo)
     {
-        parent::__construct($db);
+        parent::__construct($pdo);
         $this->role = 'fisher';
     }
+
     public function login($email, $password)
     {
         return true;
     }
 
-
-        public function register()
+    public function register()
     {
         try {
-            $checkSql = "SELECT userId FROM users WHERE useremail = :email";
+            $checkSql = "SELECT * FROM users WHERE useremail = :email";
             $checkStmt = $this->pdo->prepare($checkSql);
             $checkStmt->execute([
                 'email' => $this->email
@@ -32,9 +33,9 @@ class fisher extends User
             }
 
             $sql = "INSERT INTO users 
-            (userfullname, useremail, userpassword, userrole, userphoto, userclub, userregion, userfavouritpeche)
-            VALUES 
-            (:fullname, :email, :password, :role, :photo, :club, :region, :favouritPeche)";
+                (userfullname, useremail, userpassword, userrole, userphoto, userclub, userregion, userfavouritpeche)
+                VALUES 
+                (:fullname, :email, :password, :role, :photo, :club, :region, :favouritPeche)";
 
             $stmt = $this->pdo->prepare($sql);
 
@@ -51,29 +52,6 @@ class fisher extends User
 
         } catch (PDOException $e) {
             return 'db_error:' . $e->getMessage();
-        }
-    }
-    
-
-    public function __get($name)
-    {
-        if ($name === "password") {
-            echo "Password cannot be accessed\n";
-            return null;
-        } else {
-            echo "Getting property: $name\n";
-            return $this->$name;
-        }
-    }
-
-    public function __set($name, $value)
-    {
-        if ($name === "password") {
-            echo "Password cannot be modified\n";
-            return false;
-        } else {
-            $this->$name = $value;
-            return true;
         }
     }
 }
