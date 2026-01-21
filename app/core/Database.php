@@ -4,8 +4,6 @@ class Database
 {
     private static $instance = null;
 
-    protected PDO $pdo;
-
 
     private function __construct() {}
 
