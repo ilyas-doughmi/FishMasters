@@ -1,4 +1,4 @@
--- Active: 1768832213002@@dockhosting.dev@42576@app
+-- Active: 1769008102826@@dockhosting.dev@46132@app
 
 CREATE TABLE users (
     userId SERIAL PRIMARY KEY,
@@ -10,11 +10,14 @@ CREATE TABLE users (
 );
 
 CREATE TABLE fisher (
+    userId INT PRIMARY KEY,
     userPhoto TEXT NOT NULL,
     userClub VARCHAR(100) NOT NULL,
     userRegion VARCHAR(100) NOT NULL,
-    userFavoritPeche VARCHAR(255) NOT NULL
-) INHERITS (users);
+    userFavoritPeche VARCHAR(255) NOT NULL,
+
+    FOREIGN KEY (userId) REFERENCES users(userId)
+);
 
 
 CREATE TYPE likeTarget AS ENUM ('fisherman', 'catch', 'competition');
@@ -83,13 +86,17 @@ CREATE TABLE competition (
 
 CREATE TABLE score (
     scoreId SERIAL PRIMARY KEY,
-    scoreTotalWeight NUMERIC(5, 2) NOT NULL,
-    scoreTotalPoints NUMERIC(5, 2) NOT NULL,
-    scoreBiggestCatch NUMERIC(5, 2) NOT NULL,
+    scoreTotalWeight NUMERIC(5,2) NOT NULL,
+    scoreTotalPoints NUMERIC(5,2) NOT NULL,
+    scoreBiggestCatch NUMERIC(5,2) NOT NULL,
     scoreCatchCount INT NOT NULL,
-    scoreCompetitionId INT,
-    FOREIGN KEY (scoreCompetitionId) REFERENCES competition (competitionId)
+    scoreCompetitionId INT NOT NULL,
+    scoreFisherId INT NOT NULL,
+
+    FOREIGN KEY (scoreCompetitionId) REFERENCES competition(competitionId),
+    FOREIGN KEY (scoreFisherId) REFERENCES fisher(userId)
 );
+
 
 CREATE TABLE catch (
     catchId SERIAL PRIMARY KEY,
@@ -161,38 +168,37 @@ VALUES (
         'admin'
     );
 
-
-INSERT INTO fisher (
-    userFullName,
-    userEmail,
-    userPassword,
-    userRole,
-    userPhoto,
-    userClub,
-    userRegion,
-    userFavoritPeche
-)
-VALUES
-(
-    'Mehdi Cherkaoui',
-    'mehdi@mail.com',
-    'hashed_password_1',
-    'FISHER',
-    'mehdi.jpg',
-    'Blue Sea Club',
-    'Casablanca',
-    'Surfcasting'
-),
-(
-    'Yassine El Amrani',
-    'yassine@mail.com',
-    'hashed_password_2',
-    'FISHER',
-    'yassine.jpg',
-    'Atlantic Anglers',
-    'Agadir',
-    'Spinning'
-);
+INSERT INTO
+    fisher (
+        userFullName,
+        userEmail,
+        userPassword,
+        userRole,
+        userPhoto,
+        userClub,
+        userRegion,
+        userFavoritPeche
+    )
+VALUES (
+        'Mehdi Cherkaoui',
+        'mehdi@mail.com',
+        'hashed_password_1',
+        'FISHER',
+        'mehdi.jpg',
+        'Blue Sea Club',
+        'Casablanca',
+        'Surfcasting'
+    ),
+    (
+        'Yassine El Amrani',
+        'yassine@mail.com',
+        'hashed_password_2',
+        'FISHER',
+        'yassine.jpg',
+        'Atlantic Anglers',
+        'Agadir',
+        'Spinning'
+    );
 
 INSERT INTO
     badge (badgeName, badgeDescription)
