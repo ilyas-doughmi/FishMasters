@@ -1,15 +1,10 @@
 <?php
-<<<<<<< HEAD
-//  2GUYS
-// CREATE CLOSE GENERATE !!! SHOW EDIT JOIN !!!! // MEHDI - ILYAS
-=======
-<<<<<<< HEAD
 
-=======
 //  2GUYS
 // CREATE CLOSE GENERATE !!! SHOW EDIT JOIN !!!! // MEHDI - ILYAS
->>>>>>> feat-model
->>>>>>> ba26709d9ee4b9eaed57700aae24d976a86042e7
+
+//  2GUYS
+// CREATE CLOSE GENERATE !!! SHOW EDIT JOIN !!!! // MEHDI - ILYAS
 class CompetitionModel
 {
     private int $id;
@@ -87,23 +82,86 @@ class CompetitionModel
         $this->status = $status;
     }
 
-
-
-
-
-
-
-
-
+    public function listCompetition(): array
+    {
+        try {
+            $db = Database::getInstance();
+            $query = "SELECT * FROM competition ORDER BY competitionStartDate DESC";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            return [];
+        }
+    }
 
     public function createCompetition(): bool
     {
-        return true;
+        try {
+            $db = Database::getInstance();
+            $query = "INSERT INTO competition 
+                      (competitionName, competitionType, competitionCategory, 
+                       competitionLocation, competitionStartDate, competitionEndDate, competitionStatus)
+                      VALUES (:name, :type, :category, :location, :startDate, :endDate, :status)";
+            $stmt = $db->prepare($query);
+            $result = $stmt->execute([
+                ':name' => $this->name,
+                ':type' => $this->type,
+                ':category' => $this->category,
+                ':location' => $this->location,
+                ':startDate' => $this->startDate,
+                ':endDate' => $this->endDate,
+                ':status' => $this->status ?? 'notStarted'
+            ]);
+            return $result;
+        } catch (Exception $e) {
+            return false;
+        }
     }
-    public function close(): bool
+
+    public function updateCompetition($id): bool
     {
-        return true;
+        try {
+            $db = Database::getInstance();
+            $query = "UPDATE competition SET 
+                      competitionName = :name,
+                      competitionType = :type,
+                      competitionCategory = :category,
+                      competitionLocation = :location,
+                      competitionStartDate = :startDate,
+                      competitionEndDate = :endDate,
+                      competitionStatus = :status
+                      WHERE competitionId = :id";
+            $stmt = $db->prepare($query);
+            $result = $stmt->execute([
+                ':id' => $id,
+                ':name' => $this->name,
+                ':type' => $this->type,
+                ':category' => $this->category,
+                ':location' => $this->location,
+                ':startDate' => $this->startDate,
+                ':endDate' => $this->endDate,
+                ':status' => $this->status
+            ]);
+            return $result;
+        } catch (Exception $e) {
+            return false;
+        }
     }
+
+    public function close($id): bool
+    {
+        try {
+            $db = Database::getInstance();
+            $query = "UPDATE competition SET competitionStatus = 'done' WHERE competitionId = :id";
+            $stmt = $db->prepare($query);
+            return $stmt->execute([':id' => $id]);
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+
     public function generateRanking(): array
     {
         return [];
