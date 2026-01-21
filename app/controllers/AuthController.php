@@ -82,10 +82,10 @@ class AuthController
             require_once 'app/models/FanModel.php';
 
             $db = Database::getInstance();
-            if ($_POST['userRole'] = "fisher") {
+            if ($_POST['userRole'] == "fisher") {
                 $client = new fisher($db);
             }
-            if ($_POST['userRole'] = "fan") {
+            if ($_POST['userRole'] == "fan") {
                 $client = new Fan($db);
             }
 
