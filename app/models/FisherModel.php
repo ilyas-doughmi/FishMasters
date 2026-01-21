@@ -1,17 +1,19 @@
 <?php
 include_once "app/models/UserModel.php";
 
-class fisher extends User
+class Fisher extends User
 {
     protected $photo;
     protected $club;
     protected $region;
     protected $favouritPeche;
+
     public function __construct($pdo)
     {
         parent::__construct($pdo);
         $this->role = 'fisher';
     }
+
     public function login($email, $password)
     {
         return true;
@@ -31,31 +33,25 @@ class fisher extends User
             }
 
             $sql = "INSERT INTO users 
-(userfullname, useremail, userpassword, userrole)
-VALUES 
-(:fullname, :email, :password, :role)";
-
+                (userfullname, useremail, userpassword, userrole, userphoto, userclub, userregion, userfavouritpeche)
+                VALUES 
+                (:fullname, :email, :password, :role, :photo, :club, :region, :favouritPeche)";
 
             $stmt = $this->pdo->prepare($sql);
 
-            $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
-
-            $result = $stmt->execute([
-                ':fullname'      => $this->fullname,
-                ':email'         => $this->email,
-                ':password'      => $password_hash,
-                ':role'          => 'fisher'
+            return $stmt->execute([
+                'fullname'      => $this->fullname,
+                'email'         => $this->email,
+                'password'      => password_hash($this->password, PASSWORD_DEFAULT),
+                'role'          => $this->role,
+                'photo'         => $this->photo,
+                'club'          => $this->club,
+                'region'        => $this->region,
+                'favouritPeche' => $this->favouritPeche
             ]);
 
-
-            if (!$result) {
-                return false;
-            }
-
-            return true;
         } catch (PDOException $e) {
             return 'db_error:' . $e->getMessage();
         }
     }
-
 }
