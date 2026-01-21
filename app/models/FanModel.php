@@ -9,7 +9,7 @@ class Fan extends User
     public function __construct($db)
     {
         parent::__construct($db);
-        $this->role = 'fisher';
+        $this->role = 'fan';
     }
 
     public function register()
@@ -24,9 +24,9 @@ class Fan extends User
             }
 
             $sql = "INSERT INTO users 
-            (userfullname, useremail, userpassword, userrole, userphoto, userclub, userregion, userfavouritpeche)
+            (userfullname, useremail, userpassword, userrole)
             VALUES 
-            (:fullname, :email, :password, :role, :photo, :club, :region, :favouritPeche)";
+            (:fullname, :email, :password, :role)";
 
             $stmt = $this->pdo->prepare($sql);
 
@@ -35,10 +35,6 @@ class Fan extends User
                 'email'         => $this->email,
                 'password'      => password_hash($this->password, PASSWORD_DEFAULT),
                 'role'          => $this->role,
-                'photo'         => $this->photo,
-                'club'          => $this->club,
-                'region'        => $this->region,
-                'favouritPeche' => $this->favouritPeche
             ]);
 
         } catch (PDOException $e) {

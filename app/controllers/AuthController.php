@@ -82,12 +82,15 @@ class AuthController
             require_once 'app/models/FanModel.php';
 
             $db = Database::getInstance();
-            if ($_POST['userRole'] = "fisher") {
+            if ($_POST['userRole'] === "fisher") {
                 $client = new fisher($db);
             }
-            if ($_POST['userRole'] = "fan") {
-                $client = new Fan($db);
-            }
+            // } elseif ($_POST['userRole'] === "fan") {
+            //     $client = new Fan($db);
+            // }
+            // else{
+            //     return false;
+            // }
 
             $client->fullname = $_POST['full_name'];
             $client->email = $_POST['email'];
@@ -97,10 +100,13 @@ class AuthController
             $client->region = $_POST['region'];
             $client->favouritPeche = $_POST['favouritPeche'];
 
-            if ($client->register()) {
+            $registerResult = $client->register();
+            if ($registerResult === true) {
                 header('Location: /fishmasters/auth/login');
-            } else {
-                header('Location: /fishmasters/auth/register?error=failed');
+            } else {    
+                // Show error for debugging
+                echo '<pre>Registration failed: ' . print_r($registerResult, true) . '</pre>';
+                exit;
             }
         }
     }
