@@ -29,10 +29,10 @@ class AuthController
             $db = Database::getInstance();
 
             $userModel = new Admin($db);
-            
+
             $email = trim($_POST['email']);
             $password = $_POST['password'];
-                
+
             $result = $userModel->login(
                 $email,
                 $password
@@ -78,10 +78,16 @@ class AuthController
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             require_once 'app/core/Database.php';
             require_once 'app/models/UserModel.php';
+            require_once 'app/models/FisherModel.php';
+            require_once 'app/models/FanModel.php';
 
             $db = Database::getInstance();
-
-            $client = new user();
+            if ($_POST['userRole'] = "fisher") {
+                $client = new fisher($db);
+            }
+            if ($_POST['userRole'] = "fan") {
+                $client = new Fan($db);
+            }
 
             $client->fullname = $_POST['full_name'];
             $client->email = $_POST['email'];

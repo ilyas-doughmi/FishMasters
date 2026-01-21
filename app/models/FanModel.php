@@ -1,76 +1,52 @@
 <?php
-
-spl_autoload_register(function ($className) {
-
-    $path = "models/";
-    $extension = ".php";
-    $fullpath = $path . $className . $extension;
-
-    if (!file_exists($fullpath)) {
-        return false;
-    }
-
-    require_once $fullpath;
-});
-
-
-
 class Fan extends User
 {
-    public function login($email, $password)
+    protected $photo;
+    protected $club;
+    protected $region;
+    protected $favouritPeche;
+
+    public function __construct($db)
+    {
+        parent::__construct($db);
+        $this->role = 'fisher';
+    }
+
+    public function register()
     {
         try {
-            $sql = "SELECT * FROM users WHERE useremail = :email";
+            $checkSql = "SELECT userId FROM users WHERE useremail = :email";
+            $checkStmt = $this->pdo->prepare($checkSql);
+            $checkStmt->execute(['email' => $this->email]);
+
+            if ($checkStmt->fetch()) {
+                return 'email_exists';
+            }
+
+            $sql = "INSERT INTO users 
+            (userfullname, useremail, userpassword, userrole, userphoto, userclub, userregion, userfavouritpeche)
+            VALUES 
+            (:fullname, :email, :password, :role, :photo, :club, :region, :favouritPeche)";
+
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute(['email' => $email]);
 
-            $row = $stmt->fetch();
-
-            if (!$row) {
-                throw new Exception("User not found");
-            }
-
-            if (!password_verify($password, $row->userpassword)) {
-                throw new Exception("Incorrect password");
-            }
-
-            return true;
+            return $stmt->execute([
+                'fullname'      => $this->fullname,
+                'email'         => $this->email,
+                'password'      => password_hash($this->password, PASSWORD_DEFAULT),
+                'role'          => $this->role,
+                'photo'         => $this->photo,
+                'club'          => $this->club,
+                'region'        => $this->region,
+                'favouritPeche' => $this->favouritPeche
+            ]);
 
         } catch (PDOException $e) {
-            error_log($e->getMessage());
-            echo "A database error occurred.";
-        } catch (Exception $e) {
-            echo $e->getMessage();
+            return 'db_error:' . $e->getMessage();
         }
     }
-
-    private function hashPassword() {
-        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-    }
-
-    public function inscription() {
-
-        $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM user WHERE email = ?");
-        $stmt->execute([$this->email]);
-
-        if ($stmt->fetchColumn() > 0) {
-            throw new Exception("Email déjà utilisé");
-        }
-
-        $this->hashPassword();
-
-        $stmt = $this->pdo->prepare(
-            "INSERT INTO user (nom, prenom, email, password, role)
-             VALUES (?, ?, ?, ?, ?)"
-        );
-
-        return $stmt->execute([
-            $this->nom,
-            $this->prenom,
-            $this->email,
-            $this->password, 
-            $this->role
-        ]);
+    public function login($email, $password)
+    {
+        throw new \Exception('Not implemented');
     }
 }
-?>
