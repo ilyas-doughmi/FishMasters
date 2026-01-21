@@ -14,29 +14,35 @@ spl_autoload_register(function ($className) {
     require_once $fullpath;
 });
 
-class Badge 
+
+
+class Badge
 {
     private int $id;
     private string $name;
     private string $description;
+
+    private PDO $pdo;
 
     public function __construct(
         int $id,
         string $name,
         string $description
     ) {
+        $this->pdo = Database::getInstance();
+
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
     }
 
-     public function showBadge($userId): array
+    public function showBadge(int $userId): array
     {
-        $sql="SELECT * FROM badge_user where user_id=?";
-        $stmt=$this->pdo->prepare($sql);
-        $rows=$stmt->execute([$userId]);
-        return $rows;
-        
+        $sql = "SELECT * FROM badge_user WHERE user_id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$userId]);
+
+        return $stmt->fetchAll();
     }
 
     public function __get($property)
