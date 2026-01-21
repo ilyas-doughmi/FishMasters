@@ -71,8 +71,33 @@ class ScoreModel
             return false;
         }
     }
-    public function generateRanking(): array
+    public function generateRanking(int $competitionId): array
     {
-        return [];
+        try {
+            $db = Database::getInstance();
+            $sql = "SELECT 
+                        s.scoreId,
+                        s.scoreTotalPoints,
+                        s.scoreTotalWeight,
+                        s.scoreBiggestCatch,
+                        s.scoreCatchCount,
+                        s.scoreCompetitionId,
+                        s.scoreFisherId,
+                        u.userFullName,
+                        f.userClub,
+                        f.userRegion
+                    FROM score s
+                    LEFT JOIN fisher f ON f.userId = s.scoreFisherId
+                    WHERE s.scoreCompetitionId = :competitionId
+                    ORDER BY s.scoreTotalPoints DESC
+                    LIMIT 3";
+            $stmt = $db->prepare($sql);
+            $stmt->execute([
+                ':competitionId' => $competitionId,
+            ]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return [];
+        }
     }
 }
