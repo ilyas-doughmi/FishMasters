@@ -1,6 +1,19 @@
 <?php
 
-class Badge
+spl_autoload_register(function ($className) {
+
+    $path = "models/";
+    $extension = ".php";
+    $fullpath = $path . $className . $extension;
+
+    if (!file_exists($fullpath)) {
+        return false;
+    }
+
+    require_once $fullpath;
+});
+
+class Badge extends Database
 {
     private int $id;
     private string $name;
