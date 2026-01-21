@@ -34,26 +34,43 @@
                 <p class="text-slate-500">Entrez vos coordonnées pour accéder à votre espace.</p>
             </div>
 
-            <form action="#" class="space-y-5">
+            <?php if (isset($_GET['message']) || isset($_GET['error'])): ?>
+                <?php 
+                    $msg = $_GET['message'] ?? $_GET['error'];
+                    $displayMsg = "Une erreur est survenue.";
+                    if ($msg == 'email_not_found') $displayMsg = "Cet email n'existe pas.";
+                    elseif ($msg == 'invalid_password') $displayMsg = "Mot de passe incorrect.";
+                    elseif ($msg == 'role') $displayMsg = "Rôle utilisateur inconnu.";
+                    elseif ($msg == 'verify_credentials') $displayMsg = "Vérifiez vos identifiants.";
+                    elseif ($msg == 'invalid') $displayMsg = "Email ou mot de passe invalide.";
+                    elseif (strpos($msg, 'db_error:') === 0) $displayMsg = "Erreur base de données: " . substr($msg, 9);
+                ?>
+                <div class="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 text-red-600 text-sm font-medium flex items-center gap-2">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <?= htmlspecialchars($displayMsg) ?>
+                </div>
+            <?php endif; ?>
+
+            <form action="/fishmasters/auth/authenticate" method="POST" class="space-y-5">
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1.5">Email</label>
-                    <input type="email" placeholder="exemple@email.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-400">
+                    <input type="email" name="email" required placeholder="exemple@email.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-400">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1.5">Mot de passe</label>
-                    <input type="password" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-400">
+                    <input type="password" name="password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-400">
                 </div>
 
                 <div class="flex items-center justify-between">
                     <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary">
+                        <input type="checkbox" name="remember" class="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary">
                         <span class="text-sm text-slate-600">Se souvenir de moi</span>
                     </label>
                     <a href="#" class="text-sm font-semibold text-primary hover:underline">Mot de passe oublié ?</a>
                 </div>
 
-                <button class="w-full bg-secondary hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-slate-900/10 hover:shadow-slate-900/20 transform hover:-translate-y-0.5">
+                <button type="submit" class="w-full bg-secondary hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-slate-900/10 hover:shadow-slate-900/20 transform hover:-translate-y-0.5">
                     Se connecter
                 </button>
             </form>

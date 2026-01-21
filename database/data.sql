@@ -146,7 +146,7 @@ INSERT INTO
 VALUES (
         'Mehdi Cherkaoui',
         'mehdi@mail.com',
-        'pwd1',
+        '$2y$10$.RPgf5MmgrvmMZ4z7u8yI.NFqhj4QcRMTbAbfbuGVRkVE4a0AhbnK',
         'fisher'
     ),
     (
