@@ -95,7 +95,7 @@ class ScoreModel
             $stmt->execute([
                 ':competitionId' => $competitionId,
             ]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
         } catch (Exception $e) {
             return [];
         }
