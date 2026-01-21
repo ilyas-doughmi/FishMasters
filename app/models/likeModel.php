@@ -1,5 +1,5 @@
 <?php
-
+// GET LIKE AND FIXING IMPLEMENATION OF CLASS !!! ILYAS
 
 spl_autoload_register(function ($className) {
 
@@ -52,6 +52,7 @@ class Like extends Database
         $stmt->execute([$id]);
         return true;
     }
+    // get like count   
 
 
     public function __get($property)

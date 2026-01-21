@@ -40,4 +40,9 @@ class SpeciesModel
     {
         $this->coefficient = $coefficient;
     }
+
+
+    // new
+
+    //show speicies edit add delete // OUSASMAA
 }

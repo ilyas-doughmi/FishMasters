@@ -1,5 +1,5 @@
 <?php
-
+// add validate and calculate point add logic !!!!  MERYEM
 class CatchFish
 {
     private int $id;
@@ -67,6 +67,12 @@ class CatchFish
     {
         $this->createdAt = $createdAt;
     }
+
+
+
+
+
+
 
     public function addCatch(int $fisherId): bool
     {

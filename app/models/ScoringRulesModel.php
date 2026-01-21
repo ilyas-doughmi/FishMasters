@@ -32,8 +32,13 @@ class ScoringRulesModel
         $this->description = $description;
     }
 
+
+
+
     public function addRule(): bool
     {
         return true;
     }
+
+    // edit delete show showcompetition rules // ILYAS
 }

@@ -50,6 +50,11 @@ class ScoreModel
         $this->catchCount = $catchCount;
     }
 
+
+
+
+    // MEHDI
+
     public function showScore(int $fisherId): float
     {
         return $this->totalPoints;

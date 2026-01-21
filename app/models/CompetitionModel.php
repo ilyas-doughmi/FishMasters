@@ -1,5 +1,6 @@
 <?php
-
+//  2GUYS
+// CREATE CLOSE GENERATE !!! SHOW EDIT JOIN !!!! // MEHDI - ILYAS
 class CompetitionModel
 {
     private int $id;
@@ -76,6 +77,15 @@ class CompetitionModel
     {
         $this->status = $status;
     }
+
+
+
+
+
+
+
+
+
 
     public function createCompetition(): bool
     {

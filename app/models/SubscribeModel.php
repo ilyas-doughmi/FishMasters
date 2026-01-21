@@ -45,7 +45,7 @@ class Subscribe extends Database
 
     public function remove($id): bool
     {   
-        $sql="DELETE FROM subscribe where subscribeid=? ";
+        $sql="DELETE FROM subscribe where subscribeid=?  "; // safety add AND
         $stmt=$this->pdo->prepare($sql);
         $stmt->execute([$id]);
         return true;
@@ -60,4 +60,6 @@ class Subscribe extends Database
     {
         $this->$property = $value;
     }
+
+    // get subscritpion count MERYEM
 }

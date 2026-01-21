@@ -48,6 +48,11 @@ class Notification extends Database
         
     }
 
+    // trigger create notification () static method Notification:: Notification("new update",$fesherid);
+    // setAsRead() // setAllAsRead() // isRead true;
+
+    // implementaiton class OUSSAMA
+
     public function __get($property)
     {
         return $this->$property;
