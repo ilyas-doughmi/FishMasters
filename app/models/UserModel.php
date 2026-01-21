@@ -1,7 +1,7 @@
 <?php
 
 
-abstract class User 
+abstract class User extends Database 
 {
     protected $id;
     protected $fullname;
@@ -36,5 +36,5 @@ abstract class User
             return true;
         }
     }
-    
+
 }

@@ -1,6 +1,6 @@
 <?php
 
-class ScoringRules
+class ScoringRulesModel
 {
     private int $id;
     private string $name;
