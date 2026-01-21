@@ -84,28 +84,30 @@ class AuthController
             $db = Database::getInstance();
             if ($_POST['userRole'] === "fisher") {
                 $client = new fisher($db);
+            } elseif ($_POST['userRole'] === "fan") {
+                $client = new Fan($db);
+            } else {
+                $client = null;
             }
-            // } elseif ($_POST['userRole'] === "fan") {
-            //     $client = new Fan($db);
-            // }
-            // else{
-            //     return false;
-            // }
 
-            $client->fullname = $_POST['full_name'];
-            $client->email = $_POST['email'];
-            $client->password = $_POST['password'];
-            $client->photo = $_POST['photo'];
-            $client->club = $_POST['club'];
-            $client->region = $_POST['region'];
-            $client->favouritPeche = $_POST['favouritPeche'];
+            if ($client !== null) {
+                $client->fullname = $_POST['full_name'];
+                $client->email = $_POST['email'];
+                $client->password = $_POST['password'];
+                $client->photo = $_POST['photo'];
+                $client->club = $_POST['club'];
+                $client->region = $_POST['region'];
+                $client->favouritPeche = $_POST['favouritPeche'];
 
-            $registerResult = $client->register();
-            if ($registerResult === true) {
-                header('Location: /fishmasters/auth/login');
-            } else {    
-                // Show error for debugging
-                echo '<pre>Registration failed: ' . print_r($registerResult, true) . '</pre>';
+                $registerResult = $client->register();
+                if ($registerResult === true) {
+                    header('Location: /fishmasters/auth/login');
+                } else {
+                    echo '<pre>Registration failed: ' . print_r($registerResult, true) . '</pre>';
+                    exit;
+                }
+            } else {
+                echo '<pre>Registration failed: Invalid user role.</pre>';
                 exit;
             }
         }
