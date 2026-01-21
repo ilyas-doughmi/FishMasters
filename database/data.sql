@@ -1,4 +1,4 @@
--- Active: 1768832213002@@dockhosting.dev@42576@app
+-- Active: 1768992146616@@dockhosting.dev@46132@app
 
 CREATE TABLE users (
     userId SERIAL PRIMARY KEY,
@@ -319,3 +319,5 @@ INSERT INTO
     )
 VALUES ('competition', 1, 2),
     ('fisherman', 1, 2);
+
+    select * from fisher;
