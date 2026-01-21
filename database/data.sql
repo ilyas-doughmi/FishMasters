@@ -10,13 +10,12 @@ CREATE TABLE users (
 );
 
 CREATE TABLE fisher (
-    fisherId INT PRIMARY KEY,
     userPhoto TEXT NOT NULL,
     userClub VARCHAR(100) NOT NULL,
     userRegion VARCHAR(100) NOT NULL,
-    userFavoritPeche VARCHAR(255) NOT NULL,
-    FOREIGN KEY (fisherId) REFERENCES users (userId)
-);
+    userFavoritPeche VARCHAR(255) NOT NULL
+) INHERITS (users);
+
 
 CREATE TYPE likeTarget AS ENUM ('fisherman', 'catch', 'competition');
 
@@ -162,28 +161,38 @@ VALUES (
         'admin'
     );
 
-INSERT INTO
-    fisher (
-        fisherId,
-        userPhoto,
-        userClub,
-        userRegion,
-        userFavoritPeche
-    )
-VALUES (
-        1,
-        'mehdi.jpg',
-        'Blue Sea Club',
-        'Casablanca',
-        'Surfcasting'
-    ),
-    (
-        2,
-        'yassine.jpg',
-        'Atlantic Anglers',
-        'Agadir',
-        'Spinning'
-    );
+
+INSERT INTO fisher (
+    userFullName,
+    userEmail,
+    userPassword,
+    userRole,
+    userPhoto,
+    userClub,
+    userRegion,
+    userFavoritPeche
+)
+VALUES
+(
+    'Mehdi Cherkaoui',
+    'mehdi@mail.com',
+    'hashed_password_1',
+    'FISHER',
+    'mehdi.jpg',
+    'Blue Sea Club',
+    'Casablanca',
+    'Surfcasting'
+),
+(
+    'Yassine El Amrani',
+    'yassine@mail.com',
+    'hashed_password_2',
+    'FISHER',
+    'yassine.jpg',
+    'Atlantic Anglers',
+    'Agadir',
+    'Spinning'
+);
 
 INSERT INTO
     badge (badgeName, badgeDescription)
