@@ -45,13 +45,22 @@ class Notification extends Database
         $stmt=$this->pdo->prepare($sql);
         $rows=$stmt->execute([$userId]);
         return $rows;
-        
+
     }
 
-    // trigger create notification () static method Notification:: Notification("new update",$fesherid);
-    // setAsRead() // setAllAsRead() // isRead true;
+    public function setAsRead($notificationid){
+        $sql="UPDATE notifications SET isRead=true where id=?";
+        $stmt=$this->pdo->prepare($sql);
+        $rows=$stmt->execute([$notificationid]);
+        return $rows;
+    }
 
-    // implementaiton class OUSSAMA
+    public function setAllAsRed($user_id){
+        $sql="UPDATE notifications SET isRead=true where user_id=?";
+        $stmt=$this->pdo->prepare($sql);
+        $rows=$stmt->execute([$user_id]);
+        return $rows;
+    }
 
     public function __get($property)
     {

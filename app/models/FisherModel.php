@@ -54,4 +54,36 @@ class Fisher extends User
             return 'db_error:' . $e->getMessage();
         }
     }
+
+    public function show($columnandvalue){
+
+    if($columnandvalue==[]){
+
+        try{
+            $sql="SELECT * FROM fisher";
+            $stmt=$this->pdo->query($sql);
+            $rows=$stmt->fetchAll();
+            return $rows;
+        }
+        catch(PDOException $e){
+            echo "ERREUR SQL :".$e->getMessage(). " IN : ".$e->getFile()." LINE:".$e->getLine();
+        }
+        
+    }
+    else{
+
+        try{
+            $sql="SELECT * FROM fisher WHERE $columnandvalue[0]=?";
+            $stmt=$this->pdo->prepare($sql);
+            $stmt->execute([$columnandvalue[1]]);
+            $rows=$stmt->fetchAll();
+            return $rows;
+        }
+        catch(PDOException $e){
+            echo "ERREUR SQL :".$e->getMessage(). " IN : ".$e->getFile()." LINE:".$e->getLine();
+        }
+}
+
+}
+
 }
