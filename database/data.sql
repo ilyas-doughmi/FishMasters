@@ -102,9 +102,10 @@ CREATE TABLE catch (
     catchIsReleased BOOLEAN DEFAULT FALSE,
     catchValidated BOOLEAN DEFAULT FALSE,
     catchCreatedAt TIMESTAMP DEFAULT NOW(),
+    catchPoints NUMERIC(5, 2) DEFAULT NULL,
     catchFisherId INT NOT NULL,
     catchScoreId INT,
-    FOREIGN KEY (catchFisherId) REFERENCES fisher (fisherId),
+    FOREIGN KEY (catchFisherId) REFERENCES fisher (userId),
     FOREIGN KEY (catchScoreId) REFERENCES score (scoreId)
 );
 
