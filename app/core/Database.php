@@ -13,8 +13,8 @@ class Database
             $host = 'dockhosting.dev';
             $db   = 'app';
             $user = 'admin';
-            $pass = 'fc33f7c834f13fa10656ab8e';
-            $port = 46132;
+            $pass = 'f6d9cb9d4a70f97b8167b77f';
+            $port = 42576;
 
             $dsn = "pgsql:host=$host;port=$port;dbname=$db";
 

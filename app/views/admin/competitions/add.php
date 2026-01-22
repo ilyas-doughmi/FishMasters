@@ -43,7 +43,7 @@
             <main class="flex-1 overflow-y-auto p-6 lg:p-10">
                 <div class="max-w-3xl mx-auto">
 
-                    <form action="/fishmasters/controllers/AdminController.php/competitions_create"
+                    <form action="/fishmasters/index.php?url=Admin/competitions_create" method="POST"
                         class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-8">
 
                         <div class="space-y-4">
@@ -52,23 +52,23 @@
 
                             <div>
                                 <label class="block text-sm font-bold text-slate-700 mb-2">Nom de l'événement</label>
-                                <input type="text" placeholder="Ex: Grand Prix de Safi 2026"
+                                <input type="text" name="name" placeholder="Ex: Grand Prix de Safi 2026"
                                     class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all">
                             </div>
 
                             <div class="grid grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-sm font-bold text-slate-700 mb-2">Lieu / Spot</label>
-                                    <input type="text" placeholder="Ex: Plage Beddouza"
+                                    <input type="text" name="location" placeholder="Ex: Plage Beddouza"
                                         class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-accent outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-bold text-slate-700 mb-2">Type de
                                         competition</label>
-                                    <select
+                                    <select name="type"
                                         class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:border-accent outline-none">
-                                        <option value="mer">intraspecific (within the same species)</option>
-                                        <option value="eau_douce">interspecific (between different species)</option>
+                                        <option value="intraspecific">intraspecific (within the same species)</option>
+                                        <option value="interspecific">interspecific (between different species)</option>
                                     </select>
                                 </div>
                             </div>
@@ -76,12 +76,12 @@
                             <div class="grid grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-sm font-bold text-slate-700 mb-2">Date début</label>
-                                    <input type="date"
+                                    <input type="date" name="startDate"
                                         class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-accent outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-bold text-slate-700 mb-2">Date fin</label>
-                                    <input type="date"
+                                    <input type="date" name="endDate"
                                         class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-accent outline-none">
                                 </div>
                             </div>
@@ -92,15 +92,20 @@
                                 Scoring</h3>
 
                             <div class="gap-6">
+
                                 <div>
-                                    <label class="block text-sm font-bold text-slate-700 mb-2">Catégorie</label>
-                                    <select
+                                    <label class="block text-sm font-bold text-slate-700 mb-2">rules</label>
+                                    <select name="category"
                                         class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:border-accent outline-none">
-                                        <option value="">Individuel (<span>azdazdazdaz</span>)
+                                        <?php foreach ($rules as $rule): ?>
+                                        <option value="<?= $rule->ruleid ?>">
+                                            <?= $rule->rulename ?>
+                                            (<span><?= $rule->ruledescription ?></span>)
                                         </option>
-                                        <option value="">Par Équipe (Duo)</option>
+                                        <?php endforeach ?>
                                     </select>
                                 </div>
+
                             </div>
 
                         </div>
