@@ -1,10 +1,8 @@
 <?php
 // fix database and fix implementation !!!  OUSSAMA
-spl_autoload_register(function ($className) {
+spl_autoload_register(function ($className)) {
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
+
 spl_autoload_register(function ($className) {
 
     $path = "models/";
@@ -58,4 +56,5 @@ class Badge
     {
         $this->$property = $value;
     }
+}
 }
