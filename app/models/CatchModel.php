@@ -101,19 +101,19 @@ class CatchFish
         }
     }
 
-    public function addCatch(int $fisherId): bool
+    public function addCatch($fisherId, SpeciesModel $specie): bool
     {
         try {
             $db = Database::getInstance();
             $query = "INSERT INTO catch (catchWeight, catchLength, catchPhoto, catchIsReleased, catchValidated, catchCreatedAt, catchFisherId) VALUES (:weight, :length, :photo, :isReleased, :validated, NOW(), :fisherId)";
             $stmt = $db->prepare($query);
             return $stmt->execute([
-                ':weight' => $this->weight,
-                ':length' => $this->length,
-                ':photo' => $this->photo,
-                ':isReleased' => $this->isReleased,
-                ':validated' => $this->validated,
-                ':fisherId' => $fisherId
+                ':weight' => $specie->weight,
+                ':length' => $specie->length,
+                ':photo' => $specie->photo,
+                ':isReleased' => $specie->isReleased,
+                ':validated' => $specie->validated,
+                ':fisherId' => $fisher->userid
             ]);
         } catch (Exception $e) {
             return false;
