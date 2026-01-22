@@ -26,7 +26,8 @@ class AdminController
         require_once('app/core/Database.php');
         require_once('app/models/ScoringRulesModel.php');
         $db = Database::getInstance();
-        $competitionModel = new CompetitionModel($db);
+        $ruleModel = new ScoringRulesModel($db);
+        $rules = $ruleModel->showRules();
         require_once('app/views/admin/competitions/add.php');
     }
 
@@ -41,11 +42,39 @@ class AdminController
 
         require_once('app/views/admin/competitions/show.php');
     }
-
     public function competitions_create()
     {
-        require_once('app/views/admin/competitions/add.php');
+        require_once 'app/core/Database.php';
+        require_once 'app/models/CompetitionModel.php';
+        require_once 'app/models/ScoringRulesModel.php';
+
+        $db = Database::getInstance();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $competition = new CompetitionModel($db);
+
+            $competition->setName($_POST['name']);
+            $competition->setType($_POST['type']);
+            $competition->setCategory($_POST['category']);
+            $competition->setLocation($_POST['location']);
+            $competition->setStartDate($_POST['startDate']);
+            $competition->setEndDate($_POST['endDate']);
+            $competition->setStatus('notStarted');
+
+            if ($competition->createCompetition()) {
+                header('Location: index.php?url=admin/competitions');
+                exit;
+            }
+        }
+
+        $ruleModel = new ScoringRulesModel($db);
+        $rules = $ruleModel->showRules();
+
+        require_once 'app/views/admin/competitions/add.php';
     }
+
+
 
     public function rules()
     {
