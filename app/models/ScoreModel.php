@@ -8,6 +8,13 @@ class ScoreModel
     private float $biggestCatch;
     private int $catchCount;
 
+    private $pdo;
+
+    public function __construct($pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -50,12 +57,52 @@ class ScoreModel
         $this->catchCount = $catchCount;
     }
 
+
+
+
     public function showScore(int $fisherId): float
     {
-        return $this->totalPoints;
+        try {
+            $sql = "SELECT SUM(s.scoreTotalPoints) as total
+                    FROM score s
+                    WHERE s.scoreId IN (
+                        SELECT DISTINCT c.catchScoreId 
+                        FROM catch c 
+                        WHERE c.catchFisherId = :fisherId
+                    )";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute(['fisherId' => $fisherId]);
+            $result = $stmt->fetch(PDO::FETCH_OBJ);
+            
+            return $result->total ? (float)$result->total : 0.0;
+        } catch (PDOException $e) {
+            return 0.0;
+        }
     }
+
     public function generateRanking(): array
     {
-        return [];
+        try {
+           
+            $sql = "SELECT 
+                        f.userFullName, 
+                        f.userPhoto, 
+                        f.userClub, 
+                        f.userRegion,
+                        COALESCE(SUM(distinct_scores.scoreTotalPoints), 0) as totalPoints
+                    FROM fisher f
+                    LEFT JOIN (
+                        SELECT DISTINCT c.catchFisherId, s.scoreId, s.scoreTotalPoints
+                        FROM catch c
+                        JOIN score s ON c.catchScoreId = s.scoreId
+                    ) distinct_scores ON f.userId = distinct_scores.catchFisherId
+                    GROUP BY f.userId, f.userFullName, f.userPhoto, f.userClub, f.userRegion
+                    ORDER BY totalPoints DESC";
+
+            $stmt = $this->pdo->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            return [];
+        }
     }
 }
