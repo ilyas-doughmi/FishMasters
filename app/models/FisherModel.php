@@ -86,4 +86,20 @@ class Fisher extends User
 
 }
 
+
+    public function update($columnandvalueandid){ 
+
+    try {
+        $sql="UPDATE fisher SET $columnandvalueandid[0]=? WHERE userid=?";
+        $stmt=$this->pdo->prepare($sql);
+        $stmt->execute[[$columnandvalue[1],$columnandvalue[2]]];
+        return true;
+    }
+    catch(PDOException $e){
+    echo "ERREUR SQL :".$e->getMessage(). " IN : ".$e->getFile()." LINE:".$e->getLine();
+    }
+
+
+    }
+
 }
