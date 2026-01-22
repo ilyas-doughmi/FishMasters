@@ -1,13 +1,6 @@
 <?php
-<<<<<<< HEAD
-// GET LIKE AND FIXING IMPLEMENATION OF CLASS !!! ILYAS
-=======
-<<<<<<< HEAD
 
-=======
 // GET LIKE AND FIXING IMPLEMENATION OF CLASS !!! ILYAS
->>>>>>> feat-model
->>>>>>> ba26709d9ee4b9eaed57700aae24d976a86042e7
 
 spl_autoload_register(function ($className) {
 
