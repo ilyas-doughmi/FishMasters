@@ -40,7 +40,7 @@ class CompetitionModel
     {
         $stmt = $this->pdo->prepare("SELECT * FROM competition ORDER BY competitionStartDate DESC");
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function createCompetition(): bool
