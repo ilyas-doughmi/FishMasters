@@ -14,13 +14,14 @@ spl_autoload_register(function ($className) {
     require_once $fullpath;
 });
 
-class Notification extends Database
+class Notification 
 {
     private int $id;
     private string $message;
     private bool $isRead;
     private string $createdAt;
     private int $userId;
+    private PDO $pdo;
 
     public function __construct(
         $id = null,
@@ -34,6 +35,7 @@ class Notification extends Database
         $this->isRead = $isRead;
         $this->createdAt = $createdAt ?? date('Y-m-d H:i:s');
         $this->userId = $userId;
+        $this->pdo = Database::getInstance();
 
         $this->table = "notifications";
         $this->columns = ["message", "isRead", "createdAt", "userId"];
@@ -45,13 +47,22 @@ class Notification extends Database
         $stmt=$this->pdo->prepare($sql);
         $rows=$stmt->execute([$userId]);
         return $rows;
-        
+
     }
 
-    // trigger create notification () static method Notification:: Notification("new update",$fesherid);
-    // setAsRead() // setAllAsRead() // isRead true;
+    public function setAsRead($notificationid){
+        $sql="UPDATE notifications SET isRead=true where id=?";
+        $stmt=$this->pdo->prepare($sql);
+        $rows=$stmt->execute([$notificationid]);
+        return $rows;
+    }
 
-    // implementaiton class OUSSAMA
+    public function setAllAsRed($user_id){
+        $sql="UPDATE notifications SET isRead=true where user_id=?";
+        $stmt=$this->pdo->prepare($sql);
+        $rows=$stmt->execute([$user_id]);
+        return $rows;
+    }
 
     public function __get($property)
     {

@@ -54,5 +54,60 @@ class Fisher extends User
             return 'db_error:' . $e->getMessage();
         }
     }
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+    public function show($columnandvalue){
+
+    if($columnandvalue==[]){
+
+        try{
+            $sql="SELECT * FROM fisher";
+            $stmt=$this->pdo->query($sql);
+            $rows=$stmt->fetchAll();
+            return $rows;
+        }
+        catch(PDOException $e){
+            echo "ERREUR SQL :".$e->getMessage(). " IN : ".$e->getFile()." LINE:".$e->getLine();
+        }
+        
+    }
+    else{
+
+        try{
+            $sql="SELECT * FROM fisher WHERE $columnandvalue[0]=?";
+            $stmt=$this->pdo->prepare($sql);
+            $stmt->execute([$columnandvalue[1]]);
+            $rows=$stmt->fetchAll();
+            return $rows;
+        }
+        catch(PDOException $e){
+            echo "ERREUR SQL :".$e->getMessage(). " IN : ".$e->getFile()." LINE:".$e->getLine();
+        }
+}
+
+}
+
+
+    public function update($columnandvalueandid){ 
+
+    try {
+        $sql="UPDATE fisher SET $columnandvalueandid[0]=? WHERE userid=?";
+        $stmt=$this->pdo->prepare($sql);
+        $stmt->execute[[$columnandvalue[1],$columnandvalue[2]]];
+        return true;
+    }
+    catch(PDOException $e){
+    echo "ERREUR SQL :".$e->getMessage(). " IN : ".$e->getFile()." LINE:".$e->getLine();
+    }
+
+
+    }
+
+=======
     // show & update / OUSSAMA
+>>>>>>> e3fec75fa34dfedd151b65f8bc765718cb3b1ee7
+=======
+    // show & update / OUSSAMA
+>>>>>>> e3fec75fa34dfedd151b65f8bc765718cb3b1ee7
 }
