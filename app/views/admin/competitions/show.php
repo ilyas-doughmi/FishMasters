@@ -102,8 +102,8 @@
                                                 $statusClass = 'bg-slate-100 text-slate-500';
                                                 $statusText = 'Terminée';
                                             } else {
-                                                $statusClass = 'bg-blue-100 text-blue-700';
-                                                $statusText = 'Brouillon';
+                                                $statusClass = 'bg-red-100 text-red-700';
+                                                $statusText = 'Not Started';
                                             }
                                             ?>
                                     <span

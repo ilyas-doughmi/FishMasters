@@ -23,6 +23,10 @@ class AdminController
 
     public function competitions_add()
     {
+        require_once('app/core/Database.php');
+        require_once('app/models/ScoringRulesModel.php');
+        $db = Database::getInstance();
+        $competitionModel = new CompetitionModel($db);
         require_once('app/views/admin/competitions/add.php');
     }
 
