@@ -105,7 +105,7 @@ CREATE TABLE catch (
     catchPoints NUMERIC(5, 2) DEFAULT NULL,
     catchFisherId INT NOT NULL,
     catchScoreId INT,
-    FOREIGN KEY (catchFisherId) REFERENCES fisher (userId),
+    FOREIGN KEY (catchFisherId) REFERENCES fisher (fisherId),
     FOREIGN KEY (catchScoreId) REFERENCES score (scoreId)
 );
 
