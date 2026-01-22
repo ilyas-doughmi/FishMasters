@@ -84,27 +84,6 @@ class CompetitionModel
         $this->status = $status;
     }
 
-    public function createCompetition(): bool
-    {
-        try {
-            $sql = "INSERT INTO competitions (name, type, category, location, start_date, end_date, status) 
-                    VALUES (:name, :type, :category, :location, :start_date, :end_date, :status)";
-            
-            $stmt = $this->pdo->prepare($sql);
-            
-            return $stmt->execute([
-                'name' => $this->name,
-                'type' => $this->type,
-                'category' => $this->category,
-                'location' => $this->location,
-                'start_date' => $this->startDate,
-                'end_date' => $this->endDate,
-                'status' => $this->status
-            ]);
-        } catch (PDOException $e) {
-            return false;
-        }
-    }
 
     public function join(int $userId, int $competitionId): string
     {
@@ -150,24 +129,4 @@ class CompetitionModel
         }
     }
 
-    public function getAllCompetitions(): array
-    {
-        try {
-            $stmt = $this->pdo->query("SELECT * FROM competitions ORDER BY start_date DESC");
-            return $stmt->fetchAll(PDO::FETCH_OBJ);
-        } catch (PDOException $e) {
-            return [];
-        }
-    }
-
-    public function close(int $id): bool
-    {
-        try {
-            $sql = "UPDATE competitions SET status = 'closed' WHERE id = :id";
-            $stmt = $this->pdo->prepare($sql);
-            return $stmt->execute(['id' => $id]);
-        } catch (PDOException $e) {
-            return false;
-        }
-    }
 }
