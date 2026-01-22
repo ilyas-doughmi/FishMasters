@@ -1,33 +1,12 @@
 <?php
 
-class ScoreModel
+class Score
 {
     private int $id;
     private float $totalWeight;
     private float $totalPoints;
     private float $biggestCatch;
     private int $catchCount;
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-    public function getTotalWeight(): float
-    {
-        return $this->totalWeight;
-    }
-    public function getTotalPoints(): float
-    {
-        return $this->totalPoints;
-    }
-    public function getBiggestCatch(): float
-    {
-        return $this->biggestCatch;
-    }
-    public function getCatchCount(): int
-    {
-        return $this->catchCount;
-    }
 
     public function setId(int $id): void
     {
@@ -50,17 +29,24 @@ class ScoreModel
         $this->catchCount = $catchCount;
     }
 
-
-
-
-    // MEHDI
-
-    public function showScore(int $fisherId): float
+    public function getId(): int
+    {
+        return $this->id;
+    }
+    public function getTotalWeight(): float
+    {
+        return $this->totalWeight;
+    }
+    public function getTotalPoints(): float
     {
         return $this->totalPoints;
     }
-    public function generateRanking(): array
+    public function getBiggestCatch(): float
     {
-        return [];
+        return $this->biggestCatch;
+    }
+    public function getCatchCount(): int
+    {
+        return $this->catchCount;
     }
 }

@@ -1,43 +1,12 @@
 <?php
-// add validate and calculate point add logic !!!!  MERYEM
+
 class CatchFish
 {
     private int $id;
     private float $weight;
     private float $length;
-    private string $photo;
-    private bool $isReleased;
     private bool $validated;
-    private string $createdAt;
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-    public function getWeight(): float
-    {
-        return $this->weight;
-    }
-    public function getLength(): float
-    {
-        return $this->length;
-    }
-    public function getPhoto(): string
-    {
-        return $this->photo;
-    }
-    public function isReleased(): bool
-    {
-        return $this->isReleased;
-    }
-    public function isValidated(): bool
-    {
-        return $this->validated;
-    }
-    public function getCreatedAt(): string
-    {
-        return $this->createdAt;
-    }
+    private float $points;
 
     public function setId(int $id): void
     {
@@ -51,40 +20,33 @@ class CatchFish
     {
         $this->length = $length;
     }
-    public function setPhoto(string $photo): void
-    {
-        $this->photo = $photo;
-    }
-    public function setIsReleased(bool $isReleased): void
-    {
-        $this->isReleased = $isReleased;
-    }
     public function setValidated(bool $validated): void
     {
         $this->validated = $validated;
     }
-    public function setCreatedAt(string $createdAt): void
+    public function setPoints(float $points): void
     {
-        $this->createdAt = $createdAt;
+        $this->points = $points;
     }
 
-
-
-
-
-
-
-    public function addCatch(int $fisherId): bool
+    public function getId(): int
     {
-        return true;
+        return $this->id;
     }
-    public function validate(): bool
+    public function getWeight(): float
     {
-        $this->validated = true;
-        return true;
+        return $this->weight;
     }
-    public function calculatePoints($rule): float
+    public function getLength(): float
     {
-        return 0;
+        return $this->length;
+    }
+    public function isValidated(): bool
+    {
+        return $this->validated;
+    }
+    public function getPoints(): float
+    {
+        return $this->points;
     }
 }

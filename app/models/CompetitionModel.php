@@ -1,53 +1,13 @@
 <?php
-<<<<<<< HEAD
 
-=======
-//  2GUYS
-// CREATE CLOSE GENERATE !!! SHOW EDIT JOIN !!!! // MEHDI - ILYAS
->>>>>>> feat-model
-class CompetitionModel
+class Competition
 {
     private int $id;
     private string $name;
     private string $type;
     private string $category;
     private string $location;
-    private string $startDate;
-    private string $endDate;
     private string $status;
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-    public function getName(): string
-    {
-        return $this->name;
-    }
-    public function getType(): string
-    {
-        return $this->type;
-    }
-    public function getCategory(): string
-    {
-        return $this->category;
-    }
-    public function getLocation(): string
-    {
-        return $this->location;
-    }
-    public function getStartDate(): string
-    {
-        return $this->startDate;
-    }
-    public function getEndDate(): string
-    {
-        return $this->endDate;
-    }
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
 
     public function setId(int $id): void
     {
@@ -69,38 +29,33 @@ class CompetitionModel
     {
         $this->location = $location;
     }
-    public function setStartDate(string $startDate): void
-    {
-        $this->startDate = $startDate;
-    }
-    public function setEndDate(string $endDate): void
-    {
-        $this->endDate = $endDate;
-    }
     public function setStatus(string $status): void
     {
         $this->status = $status;
     }
 
-
-
-
-
-
-
-
-
-
-    public function createCompetition(): bool
+    public function getId(): int
     {
-        return true;
+        return $this->id;
     }
-    public function close(): bool
+    public function getName(): string
     {
-        return true;
+        return $this->name;
     }
-    public function generateRanking(): array
+    public function getType(): string
     {
-        return [];
+        return $this->type;
+    }
+    public function getCategory(): string
+    {
+        return $this->category;
+    }
+    public function getLocation(): string
+    {
+        return $this->location;
+    }
+    public function getStatus(): string
+    {
+        return $this->status;
     }
 }

@@ -1,23 +1,9 @@
 <?php
 
-class ScoringRulesModel
+class ScoringRules
 {
     private int $id;
     private string $name;
-    private string $description;
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-    public function getName(): string
-    {
-        return $this->name;
-    }
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
 
     public function setId(int $id): void
     {
@@ -27,18 +13,13 @@ class ScoringRulesModel
     {
         $this->name = $name;
     }
-    public function setDescription(string $description): void
+
+    public function getId(): int
     {
-        $this->description = $description;
+        return $this->id;
     }
-
-
-
-
-    public function addRule(): bool
+    public function getName(): string
     {
-        return true;
+        return $this->name;
     }
-
-    // edit delete show showcompetition rules // ILYAS
 }
