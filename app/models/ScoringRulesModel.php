@@ -42,3 +42,5 @@ class ScoringRulesModel
 
     // edit delete show showcompetition rules // ILYAS
 }
+
+

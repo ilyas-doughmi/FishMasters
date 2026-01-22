@@ -22,7 +22,37 @@ class SubscribeModel
         $this->targetId = $targetId;
     }
 
+<<<<<<< HEAD
     public function setType($type)
+=======
+    public function add(): bool
+    {   
+        $sql="INSERT INTO subscribe (subscribetype,subscribeuserid,subscribecreatedat) VALUES (?,?,?)";
+        $stmt=$this->pdo->prepare($sql);
+        $stmt->execute([$this->type,$this->fanId,$this->createdAt]);
+        return true;
+    }
+}
+
+    public function remove($id): bool
+
+    {   
+
+        $sql="DELETE FROM subscribe where subscribeid=?  "; // safety add AND
+
+
+        $sql="DELETE FROM subscribe where subscribeid=? ";
+
+        $sql="DELETE FROM subscribe where subscribeid=?  "; // safety add AND
+>>>>>>> feat-model
+>>>>>>> ba26709d9ee4b9eaed57700aae24d976a86042e7
+        $stmt=$this->pdo->prepare($sql);
+        $stmt->execute([$id]);
+        return true;
+    }
+
+    public function __get($property)
+>>>>>>> 691fae52fd3faf58f50f355a32a9a60d526ea5c9
     {
         $this->type = $type;
     }
@@ -43,6 +73,7 @@ class SubscribeModel
             $this->createdAt
         ]);
     }
+<<<<<<< HEAD
 
 
     public function unsubscribe()
@@ -73,3 +104,14 @@ class SubscribeModel
         return $stmt->fetchColumn();
     }
 }
+=======
+
+
+    // get subscritpion count MERYEM
+
+
+
+    // get subscritpion count MERYEM
+>>>>>>> feat-model
+>>>>>>> ba26709d9ee4b9eaed57700aae24d976a86042e7
+>>>>>>> 691fae52fd3faf58f50f355a32a9a60d526ea5c9
