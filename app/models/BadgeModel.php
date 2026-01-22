@@ -1,10 +1,7 @@
 <?php
 // fix database and fix implementation !!!  OUSSAMA
-<<<<<<< HEAD
 spl_autoload_register(function ($className)) {
 
-=======
->>>>>>> e3fec75fa34dfedd151b65f8bc765718cb3b1ee7
 
 spl_autoload_register(function ($className) {
 
@@ -59,8 +56,5 @@ class Badge
     {
         $this->$property = $value;
     }
-<<<<<<< HEAD
 }
-=======
->>>>>>> e3fec75fa34dfedd151b65f8bc765718cb3b1ee7
 }

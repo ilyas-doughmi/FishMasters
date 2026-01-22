@@ -54,8 +54,7 @@ class Fisher extends User
             return 'db_error:' . $e->getMessage();
         }
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 
     public function show($columnandvalue){
 
@@ -103,11 +102,4 @@ class Fisher extends User
 
 
     }
-
-=======
-    // show & update / OUSSAMA
->>>>>>> e3fec75fa34dfedd151b65f8bc765718cb3b1ee7
-=======
-    // show & update / OUSSAMA
->>>>>>> e3fec75fa34dfedd151b65f8bc765718cb3b1ee7
 }
