@@ -55,6 +55,7 @@ class Fisher extends User
         }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public function show($columnandvalue){
 
@@ -103,6 +104,9 @@ class Fisher extends User
 
     }
 
+=======
+    // show & update / OUSSAMA
+>>>>>>> e3fec75fa34dfedd151b65f8bc765718cb3b1ee7
 =======
     // show & update / OUSSAMA
 >>>>>>> e3fec75fa34dfedd151b65f8bc765718cb3b1ee7
