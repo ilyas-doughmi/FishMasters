@@ -1,25 +1,65 @@
 <?php
 
-class Participant
+class ParticipantModel
 {
-    private int $id;
+    private string $registerAt;
     private string $status;
+    private int $userid;
+    private int $competitionId;
 
-    public function setId(int $id): void
+    public function getRegisterAt(): string
     {
-        $this->id = $id;
+        return $this->registerAt;
     }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function getUserId(): int
+    {
+        return $this->userid;
+    }
+
+    public function getCompetitionId(): int
+    {
+        return $this->competitionId;
+    }
+
+
+    public function setRegisterAt(string $registerAt): void
+    {
+        $this->registerAt = $registerAt;
+    }
+
     public function setStatus(string $status): void
     {
         $this->status = $status;
     }
 
-    public function getId(): int
+    public function setUserId(int $userid): void
     {
-        return $this->id;
+        $this->userid = $userid;
     }
-    public function getStatus(): string
+
+    public function setCompetitionId(int $competitionId): void
     {
-        return $this->status;
+        $this->competitionId = $competitionId;
+    }
+
+    public function showAllParticipantPerCompetition($competitionId)
+    {
+        $db = Database::getInstance();
+
+        $sql = "SELECT u.userId, u.userName
+                FROM participant p
+                JOIN user u ON p.userid = u.userId
+                WHERE p.competitionId = ?";
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$competitionId]);
+
+        return $stmt->fetchAll();
     }
 }

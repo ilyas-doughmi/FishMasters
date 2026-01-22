@@ -1,12 +1,8 @@
 <?php
 // fix database and fix implementation !!!  OUSSAMA
+
 spl_autoload_register(function ($className) {
 
-<<<<<<< HEAD
-spl_autoload_register(function ($className) {
-
-=======
->>>>>>> feat-model
     $path = "models/";
     $extension = ".php";
     $fullpath = $path . $className . $extension;

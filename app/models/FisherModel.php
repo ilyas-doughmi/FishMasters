@@ -54,9 +54,5 @@ class Fisher extends User
             return 'db_error:' . $e->getMessage();
         }
     }
-<<<<<<< HEAD
-=======
-
     // show & update / OUSSAMA
->>>>>>> feat-model
 }

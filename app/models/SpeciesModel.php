@@ -1,11 +1,28 @@
 <?php
 
-class Species
+class SpeciesModel
 {
     private int $id;
     private string $name;
     private float $minSize;
     private float $coefficient;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+    public function getName(): string
+    {
+        return $this->name;
+    }
+    public function getMinSize(): float
+    {
+        return $this->minSize;
+    }
+    public function getCoefficient(): float
+    {
+        return $this->coefficient;
+    }
 
     public function setId(int $id): void
     {
@@ -24,20 +41,8 @@ class Species
         $this->coefficient = $coefficient;
     }
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-    public function getName(): string
-    {
-        return $this->name;
-    }
-    public function getMinSize(): float
-    {
-        return $this->minSize;
-    }
-    public function getCoefficient(): float
-    {
-        return $this->coefficient;
-    }
+
+    // new
+
+    //show speicies edit add delete // OUSASMAA
 }
