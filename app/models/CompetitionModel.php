@@ -18,23 +18,71 @@ class CompetitionModel
         $this->pdo = $pdo;
     }
 
-    public function getId(): int { return $this->id; }
-    public function getName(): string { return $this->name; }
-    public function getType(): string { return $this->type; }
-    public function getCategory(): string { return $this->category; }
-    public function getLocation(): string { return $this->location; }
-    public function getStartDate(): string { return $this->startDate; }
-    public function getEndDate(): string { return $this->endDate; }
-    public function getStatus(): string { return $this->status; }
+    public function getId(): int
+    {
+        return $this->id;
+    }
+    public function getName(): string
+    {
+        return $this->name;
+    }
+    public function getType(): string
+    {
+        return $this->type;
+    }
+    public function getCategory(): string
+    {
+        return $this->category;
+    }
+    public function getLocation(): string
+    {
+        return $this->location;
+    }
+    public function getStartDate(): string
+    {
+        return $this->startDate;
+    }
+    public function getEndDate(): string
+    {
+        return $this->endDate;
+    }
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
 
-    public function setId(int $id): void { $this->id = $id; }
-    public function setName(string $name): void { $this->name = $name; }
-    public function setType(string $type): void { $this->type = $type; }
-    public function setCategory(string $category): void { $this->category = $category; }
-    public function setLocation(string $location): void { $this->location = $location; }
-    public function setStartDate(string $startDate): void { $this->startDate = $startDate; }
-    public function setEndDate(string $endDate): void { $this->endDate = $endDate; }
-    public function setStatus(string $status): void { $this->status = $status; }
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+    public function setType(string $type): void
+    {
+        $this->type = $type;
+    }
+    public function setCategory(string $category): void
+    {
+        $this->category = $category;
+    }
+    public function setLocation(string $location): void
+    {
+        $this->location = $location;
+    }
+    public function setStartDate(string $startDate): void
+    {
+        $this->startDate = $startDate;
+    }
+    public function setEndDate(string $endDate): void
+    {
+        $this->endDate = $endDate;
+    }
+    public function setStatus(string $status): void
+    {
+        $this->status = $status;
+    }
 
     public function listCompetition(): array
     {
@@ -42,6 +90,16 @@ class CompetitionModel
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
+    public function getCompetitionById(int $id): ?object
+    {
+        $stmt = $this->pdo->prepare(
+            "SELECT * FROM competition WHERE competitionId = :id"
+        );
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
 
     public function createCompetition(): bool
     {
@@ -66,14 +124,14 @@ class CompetitionModel
     {
         $stmt = $this->pdo->prepare(
             "UPDATE competition SET
-            competitionName = :name,
-            competitionType = :type,
-            competitionCategory = :category,
-            competitionLocation = :location,
-            competitionStartDate = :startDate,
-            competitionEndDate = :endDate,
-            competitionStatus = :status
-            WHERE competitionId = :id"
+            competitionname = :name,
+            competitiontype = :type,
+            competitioncategory = :category,
+            competitionlocation = :location,
+            competitionstartdate = :startDate,
+            competitionenddate = :endDate,
+            competitionstatus = :status
+         WHERE competitionid = :id"
         );
 
         return $stmt->execute([
@@ -87,6 +145,7 @@ class CompetitionModel
             ':status' => $this->status
         ]);
     }
+
 
     public function close(int $id): bool
     {

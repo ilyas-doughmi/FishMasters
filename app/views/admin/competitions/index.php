@@ -107,13 +107,27 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex gap-2">
-                                        <button
-                                            class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-accent hover:bg-blue-50 rounded-lg transition-all"><i
-                                                class="fa-solid fa-pen-to-square"></i></button>
-                                        <button
-                                            class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"><i
-                                                class="fa-solid fa-trash"></i></button>
+
+                                        <form action="/fishmasters/index.php?url=admin/competitions_edit" method="POST">
+                                            <input type="hidden" name="editId" value="<?= $comp->competitionid ?>">
+                                            <button type="submit"
+                                                class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-accent hover:bg-blue-50 rounded-lg transition-all">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                        </form>
+
+                                        <form action="/fishmasters/index.php?url=admin/competitions_delete"
+                                            method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete this competition?');">
+                                            <input type="hidden" name="id" value="<?= $comp->competitionid ?>">
+                                            <button type="submit"
+                                                class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+
                                     </div>
+
                                 </td>
                             </tr>
                             <?php endforeach; ?>

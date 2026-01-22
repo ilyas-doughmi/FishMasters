@@ -74,6 +74,42 @@ class AdminController
         require_once 'app/views/admin/competitions/add.php';
     }
 
+    public function competitions_edit()
+    {
+        require_once 'app/core/Database.php';
+        require_once 'app/models/CompetitionModel.php';
+        require_once 'app/models/ScoringRulesModel.php';
+
+        $db = Database::getInstance();
+
+        $competitionModel = new CompetitionModel($db);
+        $ruleModel = new ScoringRulesModel($db);
+
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editId'])) {
+            $result = $competitionModel->getCompetitionById($_POST['editId']);
+        }
+
+        $rules = $ruleModel->showRules();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'])) {
+
+            $competitionModel->setName($_POST['name']);
+            $competitionModel->setType($_POST['type']);
+            $competitionModel->setCategory($_POST['category']);
+            $competitionModel->setLocation($_POST['location']);
+            $competitionModel->setStartDate($_POST['startDate']);
+            $competitionModel->setEndDate($_POST['endDate']);
+            $competitionModel->setStatus($_POST['editstatus']);
+
+            if ($competitionModel->updateCompetition($_POST['editIdAfter'])) {
+                header('Location: index.php?url=admin/competitions');
+                exit;
+            }
+        }
+
+        require_once 'app/views/admin/competitions/edit.php';
+    }
 
 
     public function rules()
