@@ -14,13 +14,14 @@ spl_autoload_register(function ($className) {
     require_once $fullpath;
 });
 
-class Notification extends Database
+class Notification 
 {
     private int $id;
     private string $message;
     private bool $isRead;
     private string $createdAt;
     private int $userId;
+    private PDO $pdo;
 
     public function __construct(
         $id = null,
@@ -34,6 +35,7 @@ class Notification extends Database
         $this->isRead = $isRead;
         $this->createdAt = $createdAt ?? date('Y-m-d H:i:s');
         $this->userId = $userId;
+        $this->pdo = Database::getInstance();
 
         $this->table = "notifications";
         $this->columns = ["message", "isRead", "createdAt", "userId"];
