@@ -11,6 +11,13 @@ class CompetitionModel
     private string $endDate;
     private string $status;
 
+    private $pdo;
+
+    public function __construct($pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -79,14 +86,88 @@ class CompetitionModel
 
     public function createCompetition(): bool
     {
-        return true;
+        try {
+            $sql = "INSERT INTO competitions (name, type, category, location, start_date, end_date, status) 
+                    VALUES (:name, :type, :category, :location, :start_date, :end_date, :status)";
+            
+            $stmt = $this->pdo->prepare($sql);
+            
+            return $stmt->execute([
+                'name' => $this->name,
+                'type' => $this->type,
+                'category' => $this->category,
+                'location' => $this->location,
+                'start_date' => $this->startDate,
+                'end_date' => $this->endDate,
+                'status' => $this->status
+            ]);
+        } catch (PDOException $e) {
+            return false;
+        }
     }
-    public function close(): bool
+
+    public function join(int $userId, int $competitionId): string
     {
-        return true;
+        try {
+            $stmt = $this->pdo->prepare("SELECT * FROM competitions WHERE id = :id");
+            $stmt->execute(['id' => $competitionId]);
+            $competition = $stmt->fetch(PDO::FETCH_OBJ);
+
+            if (!$competition) {
+                return "Competition not found";
+            }
+
+            if ($competition->status !== 'open') {
+                return "Competition is closed";
+            }
+
+            $currentDate = new DateTime();
+            $startDate = new DateTime($competition->start_date);
+            
+            if ($currentDate >= $startDate) {
+                return "Registration closed (started)";
+            }
+
+            $stmt = $this->pdo->prepare("SELECT * FROM participants WHERE user_id = :user_id AND competition_id = :competition_id");
+            $stmt->execute([
+                'user_id' => $userId,
+                'competition_id' => $competitionId
+            ]);
+            
+            if ($stmt->fetch()) {
+                return "Already registered";
+            }
+
+            $sql = "INSERT INTO participants (user_id, competition_id, register_at, status) VALUES (:user_id, :competition_id, NOW(), 'confirmed')";
+            $stmt = $this->pdo->prepare($sql);
+            return $stmt->execute([
+                'user_id' => $userId,
+                'competition_id' => $competitionId
+            ]) ? "Success" : "Error joining";
+
+        } catch (PDOException $e) {
+            return "Database error: " . $e->getMessage();
+        }
     }
-    public function generateRanking(): array
+
+    public function getAllCompetitions(): array
     {
-        return [];
+        try {
+            $stmt = $this->pdo->query("SELECT * FROM competitions ORDER BY start_date DESC");
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
+
+    public function close(int $id): bool
+    {
+        try {
+            $sql = "UPDATE competitions SET status = 'closed' WHERE id = :id";
+            $stmt = $this->pdo->prepare($sql);
+            return $stmt->execute(['id' => $id]);
+        } catch (PDOException $e) {
+            return false;
+        }
     }
 }
