@@ -1,5 +1,5 @@
 <?php
-
+// add validate and calculate point add logic !!!!  MERYEM
 class CatchFish
 {
     private int $id;
@@ -9,6 +9,7 @@ class CatchFish
     private bool $isReleased;
     private bool $validated;
     private string $createdAt;
+    private float $catchPoints;
 
     public function getId(): int
     {
@@ -37,6 +38,10 @@ class CatchFish
     public function getCreatedAt(): string
     {
         return $this->createdAt;
+    }
+    public function getCatchPoints(): string
+    {
+        return $this->catchPoints;
     }
 
     public function setId(int $id): void
@@ -67,18 +72,84 @@ class CatchFish
     {
         $this->createdAt = $createdAt;
     }
+    public function setCatchPoints(string $catchPoints): void
+    {
+        $this->catchPoints = $catchPoints;
+    }
+    public function showAllCatch(): array
+    {
+        try {
+            $db = Database::getInstance();
+            $query = "SELECT * FROM catch";
+            $stmt = $db->prepare($query);
+            $result = $stmt->execute();
+            return $result->fetchAll(pdo::FETCH_OBJ);
+        } catch (Exception $e) {
+            return [];
+        }
+    }
+    public function showCatchByUser($id): array
+    {
+        try {
+            $db = Database::getInstance();
+            $query = "SELECT * FROM catch WHERE catchFisherId = :id";
+            $stmt = $db->prepare($query);
+            $result = $stmt->execute([':id' => $id]);
+            return $result->fetchAll(pdo::FETCH_OBJ);
+        } catch (Exception $e) {
+            return [];
+        }
+    }
 
     public function addCatch(int $fisherId): bool
     {
-        return true;
+        try {
+            $db = Database::getInstance();
+            $query = "INSERT INTO catch (catchWeight, catchLength, catchPhoto, catchIsReleased, catchValidated, catchCreatedAt, catchFisherId) VALUES (:weight, :length, :photo, :isReleased, :validated, NOW(), :fisherId)";
+            $stmt = $db->prepare($query);
+            return $stmt->execute([
+                ':weight' => $this->weight,
+                ':length' => $this->length,
+                ':photo' => $this->photo,
+                ':isReleased' => $this->isReleased,
+                ':validated' => $this->validated,
+                ':fisherId' => $fisherId
+            ]);
+        } catch (Exception $e) {
+            return false;
+        }
     }
-    public function validate(): bool
+    public function validate(int $id): bool
     {
-        $this->validated = true;
-        return true;
+        try {
+            $db = Database::getInstance();
+            $query = "UPDATE catch SET catchValidated = TRUE WHERE catchId = :id";
+            $stmt = $db->prepare($query);
+            $result = $stmt->execute([':id' => $id]);
+            if ($result) {
+                $this->validated = true;
+            }
+            return $result;
+        } catch (Exception $e) {
+            return false;
+        }
     }
-    public function calculatePoints($rule): float
+    public function calculatePoints($id): float
     {
-        return 0;
+        try {
+            $db = Database::getInstance();
+            $query = "UPDATE catch SET catchPoints = :points WHERE catchId = :id";
+            $stmt = $db->prepare($query);
+            $result = $stmt->execute([
+                ':id' => $id,
+                ':points' => $this->catchPoints
+            ]);
+            if ($result) {
+                $this->validated = true;
+            }
+            return $result;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 }

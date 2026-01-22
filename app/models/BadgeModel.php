@@ -1,6 +1,20 @@
 <?php
+// fix database and fix implementation !!!  OUSSAMA
 
-class Badge
+spl_autoload_register(function ($className) {
+
+    $path = "models/";
+    $extension = ".php";
+    $fullpath = $path . $className . $extension;
+
+    if (!file_exists($fullpath)) {
+        return false;
+    }
+
+    require_once $fullpath;
+});
+
+class Badge extends Database
 {
     private int $id;
     private string $name;
@@ -14,6 +28,15 @@ class Badge
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
+    }
+
+     public function showBadge($userId): array
+    {
+        $sql="SELECT * FROM badge_user where user_id=?";
+        $stmt=$this->pdo->prepare($sql);
+        $rows=$stmt->execute([$userId]);
+        return $rows;
+        
     }
 
     public function __get($property)

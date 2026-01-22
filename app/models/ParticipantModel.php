@@ -2,9 +2,12 @@
 
 class ParticipantModel
 {
-    private int $id;
     private string $registerAt;
     private string $status;
+    private int $userid;
+
+    // userid competition id
+
 
     public function getId(): int
     {
@@ -31,4 +34,9 @@ class ParticipantModel
     {
         $this->status = $status;
     }
+
+    // showallParticipentPerCompetition(competition)  == jointure userid .. MERYEM
+
+
+    
 }
