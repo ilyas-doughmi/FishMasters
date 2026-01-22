@@ -6,6 +6,13 @@ class ScoringRulesModel
     private string $name;
     private string $description;
 
+    private PDO $pdo;
+
+    public function __construct(PDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -32,7 +39,12 @@ class ScoringRulesModel
         $this->description = $description;
     }
 
-
+    public function showRules(): array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM rules");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 
 
     public function addRule(): bool
