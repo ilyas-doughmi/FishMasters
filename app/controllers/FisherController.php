@@ -28,11 +28,11 @@ class FisherController {
         require_once('app/views/fisher/profile.php');
     }
 
-    public function classement($competitionId) {
+    public function classement( $competitionId) {
         require_once('app/models/CompetitionModel.php');
         require_once('app/core/Database.php');
         $pdo=Database::getInstance();
-        $competition=new CompetitionModel();
+        $competition=new CompetitionModel($pdo);
         $competition->generateRanking($competitionId);
         require_once('app/views/fisher/classement/classement.php');
     }

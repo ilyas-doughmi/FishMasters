@@ -110,33 +110,33 @@ class CompetitionModel
         if ($currentDate >= $startDate) return "Registration closed";
 
         $stmt = $this->pdo->prepare(
-            "SELECT 1 FROM participants WHERE user_id = :user_id AND competition_id = :competition_id"
+            "SELECT 1 FROM participants WHERE catchfisherid = :catchfisherid AND competition_id = :competition_id"
         );
         $stmt->execute([
-            ':user_id' => $userId,
+            ':catchfisherid' => $userId,
             ':competition_id' => $competitionId
         ]);
 
         if ($stmt->fetch()) return "Already registered";
 
         $stmt = $this->pdo->prepare(
-            "INSERT INTO participants (user_id, competition_id, register_at, status)
-             VALUES (:user_id, :competition_id, NOW(), 'confirmed')"
+            "INSERT INTO participants (catchfisherid, competition_id, register_at, status)
+             VALUES (:catchfisherid, :competition_id, NOW(), 'confirmed')"
         );
 
         return $stmt->execute([
-            ':user_id' => $userId,
+            ':catchfisherid' => $userId,
             ':competition_id' => $competitionId
         ]) ? "Success" : "Error";
     }
 
-    public function generateRanking(int $competitionId): array
+    public function generateRanking( $competitionId): array
     {
         $stmt = $this->pdo->prepare(
-            "SELECT user_id, SUM(score) AS total_score
-             FROM catches
+            "SELECT catchfisherid, SUM(score) AS total_score
+             FROM catch
              WHERE competition_id = :competition_id
-             GROUP BY user_id
+             GROUP BY catchfisherid
              ORDER BY total_score DESC"
         );
         $stmt->execute([':competition_id' => $competitionId]);
