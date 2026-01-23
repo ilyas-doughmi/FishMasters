@@ -29,7 +29,7 @@ $row=$fisher->show('userid',$id);
                     </div>
                     <h1 class="text-2xl font-black text-secondary"><?=htmlspecialchars($username)?></h1>
                     <p class="text-primary font-bold text-sm uppercase tracking-widest mt-1">Élite Pêcheur</p>
-                    <p class="text-slate-400 text-sm mt-4 italic leading-relaxed">Passionné de <?= depuis plus de 15 ans. Ambassadeur pour la préservation des zones côtières.</p>
+                    <p class="text-slate-400 text-sm mt-4 italic leading-relaxed">Passionné de <?=htmlspecialchars($fisher->Surfcasting)?> depuis plus de 15 ans. Ambassadeur pour la préservation des zones côtières.</p>
                     
                     <div class="flex justify-center gap-4 mt-8">
                         <button class="bg-primary text-white px-6 py-2 rounded-full font-bold text-sm shadow-glow transition-all hover:scale-105">Suivre</button>
@@ -44,15 +44,15 @@ $row=$fisher->show('userid',$id);
                     <div class="space-y-4">
                         <div class="flex items-center justify-between py-3 border-b border-slate-50">
                             <span class="text-sm text-slate-500 italic">Club</span>
-                            <span class="text-sm font-bold text-secondary">Club Surfcasting Rabat</span>
+                            <span class="text-sm font-bold text-secondary"><?=htmlspecialchars($fisher->userclub)?></span>
                         </div>
                         <div class="flex items-center justify-between py-3 border-b border-slate-50">
                             <span class="text-sm text-slate-500 italic">Région</span>
-                            <span class="text-sm font-bold text-secondary">Rabat-Salé-Kénitra</span>
+                            <span class="text-sm font-bold text-secondary"><?=htmlspecialchars($fisher->userregion)?></span>
                         </div>
                         <div class="flex items-center justify-between py-3 border-b border-slate-50">
                             <span class="text-sm text-slate-500 italic">Technique Favorite</span>
-                            <span class="text-sm font-bold text-secondary">Surfcasting / Leurres</span>
+                            <span class="text-sm font-bold text-secondary"><?=htmlspecialchars($fisher->Surfcasting)?> </span>
                         </div>
                         <div class="flex items-center justify-between py-3 border-b border-slate-50">
                             <span class="text-sm text-slate-500 italic">Inscrit depuis</span>

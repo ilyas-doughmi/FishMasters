@@ -1,4 +1,9 @@
-<?php require_once 'app/views/layout/header.php'; ?>
+<?php require_once 'app/views/layout/header.php'
+require_once 'app/viw' 
+
+
+
+; ?>
 
 <section class="py-12 bg-subtle min-h-screen">
     <div class="max-w-7xl mx-auto px-6">
@@ -9,7 +14,7 @@
             </div>
             
             <div class="flex gap-3">
-                <select class="px-4 py-2 rounded-xl border border-slate-200 bg-white text-sm outline-none focus:ring-2 focus:ring-primary/20">
+                <select class="px-4 py-2 rounded-xl border border-slate-200 bg-white text-sm outline-none focus:ring-2 focus:ring-primary/20" name="region">
                     <option>Toutes les régions</option>
                     <option>Rabat-Salé-Kénitra</option>
                     <option>Casablanca-Settat</option>
