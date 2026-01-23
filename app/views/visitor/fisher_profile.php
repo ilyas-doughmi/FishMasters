@@ -8,12 +8,7 @@ $fullname=$_SESSION['fullname'];
 $id=$_SESSION['id'];
 
 $fisher=new Fisher();
-$row=$fisher->show('userid',$id);
-
-
-
-
-
+$row=$fisher->show(['userid',$id]);
 ?>
 
 <section class="py-12 bg-subtle min-h-screen">
@@ -27,7 +22,7 @@ $row=$fisher->show('userid',$id);
                         <img src="https://ui-avatars.com/api/?name=Ali+Ben&background=0284c7&color=fff" class="w-32 h-32 rounded-full border-4 border-slate-50 shadow-xl mx-auto">
                         <div class="absolute bottom-0 right-0 w-8 h-8 bg-green-500 border-4 border-white rounded-full"></div>
                     </div>
-                    <h1 class="text-2xl font-black text-secondary"><?=htmlspecialchars($username)?></h1>
+                    <h1 class="text-2xl font-black text-secondary"><?=htmlspecialchars($name)?></h1>
                     <p class="text-primary font-bold text-sm uppercase tracking-widest mt-1">Élite Pêcheur</p>
                     <p class="text-slate-400 text-sm mt-4 italic leading-relaxed">Passionné de <?=htmlspecialchars($fisher->Surfcasting)?> depuis plus de 15 ans. Ambassadeur pour la préservation des zones côtières.</p>
                     

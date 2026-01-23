@@ -1,5 +1,7 @@
 <?php
 
+
+
 class FisherController {
     
     public function index() {
@@ -23,7 +25,9 @@ class FisherController {
 
     public function profile($idandvalue) {
         require_once('app/models/FisherModel.php');
-        $fisher= new Fisher();
+        require_once('app/core/Database.php');
+        $pdo=Database::getInstance();
+        $fisher= new Fisher($pdo);
         $fisher->show($idandvalue);
         require_once('app/views/fisher/profile.php');
     }

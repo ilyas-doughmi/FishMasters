@@ -1,15 +1,11 @@
 
 
 <?php
-include_once "../../app/models/FisherModel.php";
-include_once "../../app/models/FisherController.php";
+include_once "app/models/FisherModel.php";
+include_once "app/models/FisherController.php";
 
+session_start();
 $fullname=$_SESSION['fullname'];
-$id=$_SESSION['id'];
-
-$fisher=new Fisher();
-$row=$fisher->show('userid',$id);
-
 
 ?>
 
@@ -43,7 +39,7 @@ $row=$fisher->show('userid',$id);
             <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-6 lg:px-10 z-10">
                 <h1 class="text-xl font-bold text-secondary">Paramètres du profil</h1>
                 <div class="flex items-center gap-3">
-                    <span class="text-sm font-bold text-secondary hidden md:block">Ilyas Doughmi</span>
+                    <span class="text-sm font-bold text-secondary hidden md:block"><?=htmlspecialchars($fullname)?></span>
                     <img src="https://ui-avatars.com/api/?name=Ilyas&background=0284c7&color=fff" class="w-10 h-10 rounded-full border-2 border-white shadow-sm">
                 </div>
             </header>
@@ -61,7 +57,7 @@ $row=$fisher->show('userid',$id);
                                         <i class="fa-solid fa-pencil text-xs"></i>
                                     </button>
                                 </div>
-                                <h2 class="text-xl font-bold text-secondary"><?=$username?></h2>
+                                <h2 class="text-xl font-bold text-secondary"><?=htmkspecialchars($fullname)?></h2>
                                 <p class="text-slate-500 text-sm mb-4">Membre </p>
                                 <div class="inline-flex items-center px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">
                                     <i class="fa-solid fa-check-circle mr-1"></i> Pêcheur Vérifié
@@ -74,11 +70,11 @@ $row=$fisher->show('userid',$id);
                             
                             <div class="grid grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-sm font-medium text-slate-700 mb-1.5"><?=$username?></label>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1.5"><?=htmlspecialchars($fullname)?></label>
                                     <input type="text" value="Ilyas" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-slate-700 mb-1.5"><?=$username?></label>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1.5"><?=htmlspecialchars($fullname)?></label>
                                     <input type="text" value="Doughmi" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all">
                                 </div>
                             </div>

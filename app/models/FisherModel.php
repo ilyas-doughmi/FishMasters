@@ -1,7 +1,6 @@
 <?php
-include_once "app/models/FisherModel.php";
-include_once "app/models/FisherController.php";
 
+require_once 'UserModel.php';
 
 class Fisher extends User
 {
