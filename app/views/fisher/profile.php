@@ -1,3 +1,14 @@
+
+
+<?php
+include_once "../../app/models/FisherModel.php";
+include_once "../../app/models/FisherController.php";
+
+$fullname=$_SESSION['fullname'];
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>

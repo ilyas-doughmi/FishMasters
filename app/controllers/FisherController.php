@@ -6,11 +6,11 @@ class FisherController {
         require_once('app/views/fisher/dashboard.php');
     }
 
-    public function catches_add($fisherId, SpeciesModel $specie) {
+    public function catches_add($fisherId, $specieobjet) {
         require_once('app/models/CatchModel.php');
         require_once('app/models/SpeciesModel.php');
-        $catch= new Catch();
-        $catch->addCatch($fisherId, SpeciesModel $specie);
+        $catch= new CatchModel();
+        $catch->addCatch($fisherId, $specieobjet);
         require_once('app/views/fisher/catches/add.php');
     }
 
@@ -30,7 +30,9 @@ class FisherController {
 
     public function classement($competitionId) {
         require_once('app/models/CompetitionModel.php');
-        $competition=new Competition();
+        require_once('app/core/Database.php');
+        $pdo=Database::getInstance();
+        $competition=new CompetitionModel();
         $competition->generateRanking($competitionId);
         require_once('app/views/fisher/classement/classement.php');
     }
