@@ -5,6 +5,10 @@ include_once "../../app/models/FisherModel.php";
 include_once "../../app/models/FisherController.php";
 
 $fullname=$_SESSION['fullname'];
+$id=$_SESSION['id'];
+
+$fisher=new Fisher();
+$row=$fisher->show('userid',$id);
 
 
 ?>
@@ -57,8 +61,8 @@ $fullname=$_SESSION['fullname'];
                                         <i class="fa-solid fa-pencil text-xs"></i>
                                     </button>
                                 </div>
-                                <h2 class="text-xl font-bold text-secondary">Ilyas Doughmi</h2>
-                                <p class="text-slate-500 text-sm mb-4">Membre depuis Janv. 2026</p>
+                                <h2 class="text-xl font-bold text-secondary"><?=$username?></h2>
+                                <p class="text-slate-500 text-sm mb-4">Membre </p>
                                 <div class="inline-flex items-center px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">
                                     <i class="fa-solid fa-check-circle mr-1"></i> Pêcheur Vérifié
                                 </div>
@@ -70,11 +74,11 @@ $fullname=$_SESSION['fullname'];
                             
                             <div class="grid grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-sm font-medium text-slate-700 mb-1.5">Prénom</label>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1.5"><?=$username?></label>
                                     <input type="text" value="Ilyas" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-slate-700 mb-1.5">Nom</label>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1.5"><?=$username?></label>
                                     <input type="text" value="Doughmi" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all">
                                 </div>
                             </div>
