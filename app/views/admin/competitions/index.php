@@ -119,7 +119,7 @@
                                         <form action="/fishmasters/index.php?url=admin/competitions_delete"
                                             method="POST"
                                             onsubmit="return confirm('Are you sure you want to delete this competition?');">
-                                            <input type="hidden" name="id" value="<?= $comp->competitionid ?>">
+                                            <input type="hidden" name="idClose" value="<?= $comp->competitionid ?>">
                                             <button type="submit"
                                                 class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all">
                                                 <i class="fa-solid fa-trash"></i>
