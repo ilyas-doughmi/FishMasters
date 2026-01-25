@@ -11,6 +11,14 @@ class CatchFish
     private string $createdAt;
     private float $catchPoints;
 
+
+        private PDO $pdo;
+
+    public function __construct(PDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
+    
     public function getId(): int
     {
         return $this->id;
@@ -151,5 +159,17 @@ class CatchFish
         } catch (Exception $e) {
             return false;
         }
+    }
+        public function getPending(): array
+    {
+        $sql = "    SELECT *
+                FROM catch c
+                JOIN fisher f ON c.catchFisherId = f.userid
+                LEFT JOIN species s ON c.catchScoreId = s.speciesId
+                WHERE c.catchValidated = FALSE
+                ORDER BY c.catchCreatedAt DESC";
+
+        $stmt = $this->pdo->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 }
