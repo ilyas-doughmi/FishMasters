@@ -46,11 +46,59 @@ class ScoringRulesModel
         return $stmt->fetchAll();
     }
 
-
     public function addRule(): bool
     {
-        return true;
+        $stmt = $this->pdo->prepare(
+            "INSERT INTO rules (ruleName, ruleDescription)
+             VALUES (:name, :description)"
+        );
+
+        return $stmt->execute([
+            ':name' => $this->name,
+            ':description' => $this->description
+        ]);
     }
 
-    // edit delete show showcompetition rules // ILYAS
+    public function editRule(int $id): bool
+    {
+        $stmt = $this->pdo->prepare(
+            "UPDATE rules
+             SET rulename = :name,
+                 ruledescription = :description
+             WHERE ruleid = :id"
+        );
+
+        return $stmt->execute([
+            ':name' => $this->name,
+            ':description' => $this->description,
+            ':id' => $id
+        ]);
+    }
+
+    public function deleteRule(int $id): bool
+    {
+        $stmt = $this->pdo->prepare(
+            "DELETE FROM rules WHERE ruleId = :id"
+        );
+
+        return $stmt->execute([
+            ':id' => $id
+        ]);
+    }
+
+
+    public function getRuleById(int $id)
+    {
+        $stmt = $this->pdo->prepare(
+            "SELECT * FROM rules WHERE ruleId = :id"
+        );
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function getAllRules()
+    {
+        $stmt = $this->pdo->query("SELECT * FROM rules ORDER BY ruleId DESC");
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }
