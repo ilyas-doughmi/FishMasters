@@ -7,6 +7,13 @@ class SpeciesModel
     private float $minSize;
     private float $coefficient;
 
+    private PDO $pdo;
+
+    public function __construct(PDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -57,12 +64,12 @@ class SpeciesModel
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([':id' => $id]);
 
-        $result = $stmt->fetch();
+        return $stmt->fetch(PDO::FETCH_OBJ);
         return $result;
     }
 
 
-    public function update(Species $species): bool
+    public function update(int $id): bool
     {
         $sql = "UPDATE species
                 SET speciesname = :name,
@@ -72,14 +79,14 @@ class SpeciesModel
 
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
-            ':name'    => $species->speciesname,
-            ':minsize' => $species->speciesminsize,
-            ':coef'    => $species->coefficient,
-            ':id'      => $species->speciesid
+            ':name'    => $this->name,
+            ':minsize' => $this->minSize,
+            ':coef'    => $this->coefficient,
+            ':id'      => $id
         ]);
     }
 
-    
+
     public function delete(int $id): bool
     {
         $sql = "DELETE FROM species WHERE speciesid = :id";
@@ -88,6 +95,19 @@ class SpeciesModel
         return $stmt->execute([':id' => $id]);
     }
 
+    public function create(): bool
+    {
+        $sql = "INSERT INTO species (speciesName, speciesMinSize, coefficient)
+            VALUES (:name, :minsize, :coef)";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        return $stmt->execute([
+            ':name'    => $this->name,
+            ':minsize' => $this->minSize,
+            ':coef'    => $this->coefficient
+        ]);
+    }
 
     // new
 
